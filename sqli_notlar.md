@@ -4,4 +4,4 @@ Sql injection notları burada yer almaktadır.
 Sql injection, saldırganların veri tabanı içeren uygulamalarda kendi sorgularını yazabilmesidir.
 ## **Veri Tabanı Mantığını Anlamak**
 Veritabanında "SELECT 1" sorgusunu çalıştırdığımızda verdiği sonuç aşağıdaki gibidir.
-https://github.com/berserker-sec/websec_notlar/issues/1#issue-3180622737
+![Image](https://github.com/user-attachments/assets/c5d098b7-acec-46d6-830a-900456a2a9b6)
