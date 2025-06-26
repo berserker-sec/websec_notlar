@@ -1,4 +1,4 @@
-#0x01
+# 0x01
 Sql injection notları burada yer almaktadır.
 ## **SQL Injection nedir?**
 Sql injection, saldırganların veri tabanı içeren uygulamalarda kendi sorgularını yazabilmesidir.
