@@ -4,6 +4,7 @@ Sql injection notları burada yer almaktadır.
 Sql injection, saldırganların veri tabanı içeren uygulamalarda kendi sorgularını yazabilmesidir.
 ## **Veri Tabanı Mantığını Anlamak**
 Veri Tabanı Sorguları
+
 Veritabanında "SELECT 1" sorgusunu çalıştırdığımızda verdiği sonuç aşağıdaki gibidir.
 
 ![Image](https://github.com/user-attachments/assets/c5d098b7-acec-46d6-830a-900456a2a9b6)
@@ -23,3 +24,20 @@ Veritabanında " SELECT '2-1' " sorgusunu çalıştırdığımızda verdiği son
 Veritabanında " SELECT '2'-'1' " sorgusunu çalıştırdığımızda verdiği sonuç aşağıdaki gibidir. Bu seferki sorgu, '2' ve '1' stringlerini integer'a çevirir ve işlem yapar.
 
 ![Image](https://github.com/user-attachments/assets/279243ff-8469-4e10-b342-998e548ae62c)
+
+Veritabanında " SELECT '2'+'1' " sorgusunu çalıştırdığımızda verdiği sonuç aşağıdaki gibidir. Bu seferki sorguda da, '2' ve '1' stringlerini integer'a çevirir ve işlem yapar.
+
+![Image](https://github.com/user-attachments/assets/28eaea1f-36fa-4998-bf99-c85961876fde)
+
+Bu sorguda string ifadeleri integer'a dönüştürülmüştür ama bu sefer 'a' ifadesi bir sayı olmadığı için integer'a dönüştürülürken 0 alınmıştır. Bu da sonucun 2 çıkmasına sebep olur.
+
+![Image](https://github.com/user-attachments/assets/bad2a93c-a3d6-4146-95ad-66335c0f5ce4)
+
+Buradaki stringlerin ikiside sayı olmadığı için ikisi de integer'a 0 olacak şekilde dönüştürülür. Bu da 0 sonucunun çıkmasına sebep olur.
+
+![Image](https://github.com/user-attachments/assets/f0719bc3-0cf4-4353-b5c6-b3237ffcb79d)
+
+Aşağıdaki sorguda, stringlerin arasında boşluk bırakmanın concat işlemine denk olduğunu anlamış oluyoruz.
+
+![Image](https://github.com/user-attachments/assets/f35a978f-dbaf-4793-9b92-41ac654c0990)
+![Image](https://github.com/user-attachments/assets/92744911-85f6-4dea-833c-720c0ffd0d5b)
