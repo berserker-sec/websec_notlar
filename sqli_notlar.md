@@ -66,6 +66,10 @@ SELECT ~1 sorgusunu yazarsak bize maksimum integer input sayısı gelmektedir.
 
 ![Image](https://github.com/user-attachments/assets/856a490c-8514-4e6c-a640-2172eeb2efbc)
 
+Veri Tabanı Üzerinde Yaptığım Denemeler
+
+Burada veritabanında yeni bir tablo oluşturduk
+
 ```
 CREATE TABLE users (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -75,3 +79,8 @@ email VARCHAR(50),
 reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )
 ```
+
+Burada tablomuza değer ekliyoruz
+
+```
+INSERT INTO users(firstname,lastname) VALUES ('mustafa samed','özşahin')
