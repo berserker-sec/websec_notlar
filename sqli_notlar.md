@@ -84,3 +84,63 @@ Burada tablomuza değer ekliyoruz
 
 ```
 INSERT INTO users(firstname,lastname) VALUES ('mustafa samed','özşahin')
+```
+
+Daha sonra eklenen değeri görmek için aşağıdaki sorguyu yazıyoruz.
+
+```
+MariaDB [TEST]> SELECT * from users;
++----+---------------+-----------+-------+---------------------+
+| id | firstname     | lastname  | email | reg_date            |
++----+---------------+-----------+-------+---------------------+
+|  1 | mustafa samed | özşahin   | NULL  | 2025-06-28 18:35:56 |
++----+---------------+-----------+-------+---------------------+
+```
+
+Şimdi ise adımın sonuna boşluklar ekleyerek tabloya ekliyorum.
+
+```
+MariaDB [TEST]> INSERT INTO users(firstname,lastname) VALUES ('mustafa samed ','özşahin');
+Query OK, 1 row affected (0.006 sec)                                                                                                                               MariaDB [TEST]> INSERT INTO users(firstname,lastname) VALUES ('mustafa samed  ','özşahin');                                                                        Query OK, 1 row affected (0.008 sec)                                                                                                                               MariaDB [TEST]> INSERT INTO users(firstname,lastname) VALUES ('mustafa samed   ','özşahin');                                                                       Query OK, 1 row affected (0.005 sec)                                                                                                                               MariaDB [TEST]> INSERT INTO users(firstname,lastname) VALUES ('mustafa samed    ','özşahin');                                                                      Query OK, 1 row affected (0.006 sec)
+```
+
+Ve tabloda firstname sütununda 'mustafa samed' olan kullanıcıları listelediğimde sonuna boşluk eklediklerim de geliyor.
+
+```
+SELECT * FROM users WHERE firstname='mustafa samed';
++----+-------------------+-----------+-------+---------------------+                                                                                                                                                                        
+| id | firstname         | lastname  | email | reg_date            |                                                                                                                                                                        
++----+-------------------+-----------+-------+---------------------+                                                                                                                                                                        
+|  1 | mustafa samed     | özşahin   | NULL  | 2025-06-28 18:35:56 |                                                                                                                                                                        
+|  3 | mustafa samed     | özşahin   | NULL  | 2025-06-28 18:50:54 |
+|  4 | mustafa samed     | özşahin   | NULL  | 2025-06-28 18:51:27 |
+|  5 | mustafa samed     | özşahin   | NULL  | 2025-06-28 18:51:36 |
+|  6 | mustafa samed     | özşahin   | NULL  | 2025-06-28 18:51:41 |
++----+-------------------+-----------+-------+---------------------+
+```
+
+Veri tabanına mustafa samed isimli bir admin varsa mustafa samed+boşluk diyerek yeni bir kullanıcı oluşturabilirim ve daha sonra şifremi unuttum seçeneği ile veritabanındaki bütün mustafa samed kullanıcılarında aynı işlemi yapabiliriz.
+
+# **1-Union sqli**
+
+## **Pseudo Code**
+
+www.x.com/?id=1
+
+```
+MDISEC
+
+====================================
+
+id = request.get('id')
+
+query = "SELECT * FROM haberler WHERE id ="+id
+
+result = db.execute(query)
+
+if result.size() > 0:
+  for i in result:
+    print(i.title)
+else:
+  print("haberler yok")
+```
