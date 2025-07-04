@@ -1,0 +1,19 @@
+# 0x02 | IDOR 
+
+# **GİRİŞ**
+
+IDOR'u anlamak için önce web uygulamasının nasıl çalıştığını anlamak gerek. Siber güvenlikteki en kritik nokta inputtur. Inputta uygulamanın kullanıcıdan aldığı direktiftir.
+Mesela bir e-ticaret web uygulaması düşünelim. Bu uygulamaya birden fazla adres girebiliriz. Sipariş verirken bu adreslerden birini seçebiliriz. Ama eğerki başkasının adresini 
+görebilirsek bu bir IDOR açığına örnektir.
+
+# **IDOR tanımı**
+
+Bir web sitesine girdiğimizde uygulamalara nesneler üzerinden erişiriz ama eğer ki bir saldırgan başka kullanıcıların nesnelerine yetkisiz erişim sağlarsa biz buna IDOR
+(Insecure Direct Object Reference) deriz. Türkçesi güvenli olmayan doğrudan nesne referansı'dır.
+
+Web uygulamaları kullanıcıdan aldığı verilerle veritabanında bazı işlemler yapar(silme, ekleme, güncelleme gibi). Uygulamanın bu işlemleri yapabilmek için bazı kuralları vardır.
+Mesela başka kullanıcıların verisine erişmeme gibi. Eğer erişilebiliyorsa IDOR zafiyeti var demektir.
+Örneğin;
+
+Burada mdi 1 user ve mdi 2 user isimli kullanıcılar var ve bu kullancıların adreslerini buradan ekleyebiliyoruz.
+
