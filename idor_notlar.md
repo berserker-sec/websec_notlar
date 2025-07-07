@@ -70,7 +70,7 @@ class AddressController extend Controller {
 
 Eğer adresi silebilseydim bu, IDOR zafiyeti var demekti.
 
-# **Missing Fuction Level Access ve IDOR**
+## **Missing Fuction Level Access ve IDOR**
 
 İkisinin de tanımı:
 IDOR (Insecure Direct Object Reference), saldırganların başka kullanıcıların nesnelerine yetkisiz erişimidir. Missing Fuction Level Access Controll(Fonksiyon Seviyesinde Yetki Kontrolü Eksikliği) ise, kullanıcıların kısıtlanması gereken işlevleri gerçekleştirmelerine veya korunması gereken kaynaklara erişmelerine olanak tanır. 
@@ -118,4 +118,37 @@ dd($address);
   }
 }
 ```
+
+## **Başka IDOR zafiyetleri**
+
+Sipariş detay sayfasına geldiğimizde adres bilgisini görülüyor.
+
+![image](https://github.com/user-attachments/assets/bea66f0a-53ca-41e4-8a3c-164324758108)
+
+Checkout sayfasına girildiğinde böyle bir dropdown menü görülüyor.
+
+![image](https://github.com/user-attachments/assets/d0d9a978-e62b-4de4-8a73-7e5fa337b54b)
+
+Checkout sayfası incelediğinde adrese ait bir id değeri ve bu değerinin 17 olduğu görülüyor.
+
+![image](https://github.com/user-attachments/assets/a5dbe226-f6cc-4e7d-823a-1d0674a196ba)
+
+Adreslerin olduğu sayfa geri dönülüp sayfa incelendiğinde yine aynı adrese ait 17 değeri görülüyor. Yani uygulamanın her yerinde bu id kullanılıyor.
+
+![image](https://github.com/user-attachments/assets/637c5c63-37af-45dc-b2be-db25897b0ca6)
+
+Checkout sayfasına giden requestte 17 idsini görüyorülüyor. Bu, 18 ile değiştirilirse ne olur?
+
+![image](https://github.com/user-attachments/assets/62729e4f-2eeb-4cd5-a2fe-232091327a33)
+
+Siparişin show details kısmına gelindiğinde idsi 18 olan adres görülüyor.
+
+![image](https://github.com/user-attachments/assets/94dd03c5-1dfd-4f58-b5db-93cdf40c03c7)
+
+Bu işlemin literatürdeki tam adı da Second Order Insecure Direct Object Reference şeklindedir. Adresi seçtiğimiz endpoint ile değiştirdiğimiz id değerini gördüğümüz kısım farklıdır çünkü. Olay tek bir request-response döngüsü içinde yaşanmamaktadır.
+
+# **IDOR, neden en zorlu zafiyet tipi?**
+
+Zafiyetler, teknik zafiyetler ve bussiness logic zafiyetler olarak iki ana kategoriye ayrılabilir. Teknik zafiyetlerde(xss,sqli gibi) bir payload görülür ama bussiness logic zafiyetlerde görülmez. Yapılan örneklere bakıldığında da yapılan işin bir id'yi değiştirmek olduğu görülüyor, bunu da kodu incelerken fark etmek oldukça zor.  
+
 
