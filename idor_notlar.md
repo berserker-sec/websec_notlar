@@ -151,4 +151,33 @@ Bu işlemin literatürdeki tam adı da Second Order Insecure Direct Object Refer
 
 Zafiyetler, teknik zafiyetler ve bussiness logic zafiyetler olarak iki ana kategoriye ayrılabilir. Teknik zafiyetlerde(xss,sqli gibi) bir payload görülür ama bussiness logic zafiyetlerde görülmez. Yapılan örneklere bakıldığında da yapılan işin bir id'yi değiştirmek olduğu görülüyor, bunu da kodu incelerken fark etmek oldukça zor.  
 
+Günümüzde, IDOR’un en çok karşılaşılan ve etkisi en kritik zafiyetlerden olmasının sebebi; artık developerların daha büyük ve gelişmiş uygulamalar geliştirmesidir.
 
+# **Bu Tür Zafiyetler Nasıl ve Neden Ortaya Çıkmaktadır ? — Mikroservis Mimarilerine Bakış**
+
+Bir kurumdan örnek verilecek olursa. Bu kurumda bir user var ve bu user bilgisine erişmesi gereken birçok uygulama var. Her uygulamanın veri tabanına erişip kendi sorgularını çalıştırması sorun olacaktır. Sorun gerçekleşmemesi için içeride user bilgilerini dönen bir service yazılmalıdır. Görselde de görüldüğü gibi artık birbirinden farklı çalışan service'ler bulunmakta ve bu mimarinin geliştirilmesinde alınan kararlar işin güvenlik kısmına etki etmekte. 
+
+![image](https://github.com/user-attachments/assets/4a5083da-b58c-4ad2-9a97-c743731e5b07)
+
+https://medium.com/@OlabodeAbesin/microservice-architecture-the-complete-guide-357bf7131cf1
+
+Örneğin:
+
+Görseldeki gibi id'yi hem 5 hem de 6 yapıp istek atıldığında python yukarıdaki ifadeyi alırken herhangi x dili aşağıdaki ifadeyi alabilir. Mikroservis ve API gateway'in farklı programlama dilleri ile çalışması json'ı farklı şekilde yorumlamalarına örnekteki gibi sebep olabilir.
+
+![image](https://github.com/user-attachments/assets/c7cc5686-f739-4efd-8a3a-0da4ef9d3c7d)
+
+# **Authmatrix**
+
+AuthMatrix, web uygulamalarında ve web servislerinde yetkilendirmeyi test etmenin basit bir yolunu sağlayan bir Burp Suite uzantısıdır. Bu araç sayesinde isten
+len kullanıcılar eklenerek her kullanıcı için ayrı bir pencerede işlemler yürütülebilir. 
+
+![image](https://github.com/user-attachments/assets/74995032-63fd-49da-9299-e7d4788d8532)
+
+# **Autochrome**
+
+https://github.com/nccgroup/autochrome
+
+# **Kaynakça**
+
+https://www.youtube.com/watch?v=TsJ2XPuGe1k
