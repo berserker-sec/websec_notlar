@@ -25,11 +25,6 @@ Server: “Merhaba benimle konuşmak istediğini duydum ve seninle konuşmaya m�
 
 Client: “Merhaba, ben seninle konuşmak istediğimi söylemiştim sen de bunu duymuşsun ve benimle konuşmak için müsait olduğunu duydum. Hadi konuşalım”
 
-
-
-![image](https://github.com/user-attachments/assets/767af416-f537-4fc4-b8d3-3d5c58c2fed6)
-
-
 Burada 3'lü paket gönderilmektedir. En büyük katkısı karşı tarafın kontrol edilmesidir.
 
 Http ile kıyaslandığında http'nin doğrulamasının olmaması göze çarpar. Yani protokolde authentication(kimlik doğrulama) yoktur. Bir diğer konu da statelerdir.
@@ -70,3 +65,6 @@ http://www.mdisec.com:80/
 
 Browser’ların baktığı kısım burada “protocol”+”domain”+”port” kısımlarıdır. Bir web HTTP Request’i gittikten sonra HTTPS ile girdiğimizde oturum kayıplarıyla karşılaşmış olabilirsiniz. Sebebi bu durumdan kaynaklanmaktadır.
 
+## **Cookie ve Session Hakkında**
+
+![image](https://github.com/user-attachments/assets/767af416-f537-4fc4-b8d3-3d5c58c2fed6)
