@@ -67,8 +67,12 @@ Browser’ların baktığı kısım burada “protocol”+”domain”+”port�
 
 ## **Cookie ve Session Hakkında**
 
-Kullanıcı, sunucuya ilk giriş yaptığında sunucu bir session id üretir. Bu id genellikle bir cookie olarak tarayıcıya gönderilir. Tarayıcı bu cookieyi her defasında sunucuya gönderir. Sunucu bu id'ye göre oturum bilgilerini bulur.
+Kullanıcı, sunucuya ilk giriş yaptığında sunucu bir session id üretir. Bu id genellikle bir cookie olarak tarayıcıya gönderilir. Tarayıcı bu cookieyi her defasında sunucuya gönderir. Sunucu bu id'ye göre oturum bilgilerini bulur. Cookie; bir anahtar, bir kimlik gibi düşünülebilir. Session, bu kimliğe dair bilgilerin yazıldığı ve tutulduğu bir bilgi topluluğudur ve bu da %90 sunucu tarafında.
 
 ### **Cookie nerede saklanır?**
 
 ![image](https://github.com/user-attachments/assets/767af416-f537-4fc4-b8d3-3d5c58c2fed6)
+
+#### **1. Yöntem**
+
+
