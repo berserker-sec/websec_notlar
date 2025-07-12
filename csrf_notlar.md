@@ -78,3 +78,10 @@ Kullanıcı, sunucuya ilk giriş yaptığında sunucu bir session id üretir. Bu
 Diskte kendi üzerinde tutabilir. Ama diskte tutmanın bazı dezavantajları var. Kullanıcıdan gelen her requestte diskteki hangi session'ın dosyasına ait olduğunu bulmak gerek ve bir değişiklik yapılacağı zaman dosyayı update etmek gerek. Sürekli diskte birşeyler yazıp silerek yapılan bu işlemler, request ve responseları yavaşlatır. 
 
 Web application'ın sayısı birden ikiye çıkarsa ön tarafa gelen requestleri dağıtmak için bir reverse proxy'nin sessionları senkronize etmesi gerekmetedir(görselde olduğu gibi). Buradan da anlaşılacağı üzere diskte tutmak efektif bir yöntem değildir.
+
+#### **2. Yöntem/DB'de Tutma**
+
+DB'de saklanma durumunda cookie, SELECT sorgusu ile session tablosuna sorulur ve sessiondaki tüm bilgiler databaseden alınır. Diskte tutma yöntemine göre daha iyidir çünkü diskteki senkronizasyon problemi db'de yaşanmaz. Günümüzde çok kullanılan bir yöntem olmasına karşın yük ve performanstan dolayı en iyi yöntem değildir.
+
+#### **3. Yöntem/Redis**
+
