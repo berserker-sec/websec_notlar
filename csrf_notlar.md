@@ -73,6 +73,8 @@ Kullanıcı, sunucuya ilk giriş yaptığında sunucu bir session id üretir. Bu
 
 ![image](https://github.com/user-attachments/assets/767af416-f537-4fc4-b8d3-3d5c58c2fed6)
 
-#### **1. Yöntem**
+#### **1. Yöntem/Diskte Tutma**
 
+Diskte kendi üzerinde tutabilir. Ama diskte tutmanın bazı dezavantajları var. Kullanıcıdan gelen her requestte diskteki hangi session'ın dosyasına ait olduğunu bulmak gerek ve bir değişiklik yapılacağı zaman dosyayı update etmek gerek. Sürekli diskte birşeyler yazıp silerek yapılan bu işlemler, request ve responseları yavaşlatır. 
 
+Web application'ın sayısı birden ikiye çıkarsa ön tarafa gelen requestleri dağıtmak için bir reverse proxy'nin sessionları senkronize etmesi gerekmetedir(görselde olduğu gibi). Buradan da anlaşılacağı üzere diskte tutmak efektif bir yöntem değildir.
