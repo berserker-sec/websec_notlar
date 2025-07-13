@@ -85,3 +85,7 @@ DB'de saklanma durumunda cookie, SELECT sorgusu ile session tablosuna sorulur ve
 
 #### **3. Yöntem/Redis**
 
+Redis; hiçbir diskte tutulmayan, sadece bir işletim sistemi aracılığıyla memory'de key-value şeklinde değer tutan bir servis. Session ile ilgili bilgilerin tutulup kontrol edildiği yer redis ise hem memory kullandığı için hızlı olur hem de veri kaybı yaşanırsa en kötü 302 status kodunu verir. Yeniden login ile cookie kolayca yenilenir.
+
+#### **4. Yöntem/Client**
+
