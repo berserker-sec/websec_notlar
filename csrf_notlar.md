@@ -107,3 +107,6 @@ Set-Cookie: {
 
 ## **CSRF Hakkında**
 
+Bir e-ticaret uygulamasında adresin silinmeye çalışılması durumunda ortaya çıkan request.
+
+<img width="816" height="324" alt="image" src="https://github.com/user-attachments/assets/1b2532e2-305a-42b0-ae06-e01d83e200ba" />
