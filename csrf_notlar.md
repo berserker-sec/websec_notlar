@@ -90,3 +90,20 @@ Redis; hiçbir diskte tutulmayan, sadece bir işletim sistemi aracılığıyla m
 #### **4. Yöntem/Cookie Based Session**
 
 Cookie bilgisinin client'ta tutulmasına cookie based session denir. 
+
+Cookie Based Session'da bir json objesi oluşturulur. Bir IV (Initialization Vector) değerine rastgele başlangıç değeri atanır ve json objesine eklenir. Daha sonra bir Checksum oluşturulur. Burada Symetric Encryption yapılacağı için IV değeri bize lazım olacaktır. Daha sonra session data’sının tamamını şifreliyoruz. Bunu şifrelerken kullandığımız şey sunucu tarafında config dosyasında bulunan SYMC ENC SUPER SECRET KEY değerini kullanırız. Daha sonra da verimizde herhangi bir değişiklik olmadığından emin olmak için HMAC ile objenin kendisi ve KEY değerini birleştirerek bir Signature oluştururuz. Daha sonra da bu değeri Base64 ile encode ederiz. Ve artık user’a bu değeri veririz. Session’ı artık kullanıcı taşıyacaktır.
+
+```
+SUNUCU TARAFINDA CONFıG DOSYASINDA BULUNAN SYMC ENC SUPER SECRET KEY ...!!!
+
+username=mehmet&password=twitch
+
+HTTP 302 OK
+Location: mdisec.com/dashboard
+Set-Cookie: {
+'IV':'RANDOM_DEGER',
+'session_data':ENC(['email','user_id'])}|CHECKSUM --SIGNATURE --> BASEE64ENCODE
+```
+
+## **CSRF Hakkında**
+
