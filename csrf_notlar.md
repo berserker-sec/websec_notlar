@@ -110,3 +110,18 @@ Set-Cookie: {
 Bir e-ticaret uygulamasında adresin silinmeye çalışılması durumunda ortaya çıkan request.
 
 <img width="816" height="324" alt="image" src="https://github.com/user-attachments/assets/1b2532e2-305a-42b0-ae06-e01d83e200ba" />
+
+Web uygulaması bu request'i user’ın isteyerek mi gönderdiğini yoksa farketmeden mi gönderdiğini anlamak zorunda.
+
+```
+1. TAB
+18.132.45.78
+
+2. TAB
+www.hacker.com
+
+<html>
+ <img src="http://18.132.45.78/address/delete/17"></img>
+ <h1> Bu siteye giren 1M'inci kişi oldunuz... </h1>
+</html>
+```
