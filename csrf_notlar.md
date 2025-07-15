@@ -105,7 +105,7 @@ Set-Cookie: {
 'session_data':ENC(['email','user_id'])}|CHECKSUM --SIGNATURE --> BASEE64ENCODE
 ```
 
-## **CSRF Hakkında**
+## **CSRF(Cross Site Request Forgery) Hakkında**
 
 Bir e-ticaret uygulamasında adresin silinmeye çalışılması durumunda ortaya çıkan request.
 
@@ -125,3 +125,12 @@ www.hacker.com
  <h1> Bu siteye giren 1M'inci kişi oldunuz... </h1>
 </html>
 ```
+
+Yukarıdaki response'u alan browser <img> etiketini gördükten sonra "http://18.132.45.78/address/delete/17" kaynağına http requesti gönderecek. Bir request gönderilirken cookie “domain”+”protocol”+”port” bilgisi doğruysa ekleniyor. Browser bu resmi üretmek için aşağıdaki get requestin aynısını üretir.
+
+<img width="722" height="221" alt="image" src="https://github.com/user-attachments/assets/8b2ab6f6-8e28-45ad-b291-771723641bfd" />
+
+Ama "www.hacker.com" adresine giren kişi böyle bir request gönderdiğinin farkında değildir. Web uygulaması bu requesti gördüğünde cookiede session bilgisine bakacak ve uygulama, ilgili kimliğe sahip kullanıcının adresini silme işlemini gerçekleştirir fakat kullanıcı "Bu siteye giren 1M'inci kişi oldunuz..." içeriğini barındıran siteye gider. CSRF(Cross Site Request Forgery)'in ortaya çıkışı da böyle olur. Yani siteler arası istek sahteciliği. 
+
+Csrf'in önüne geçmek için requestin kullanıcı tarafından bilinçli bir şekilde gönderilip gönderilmediğini tespit etmek gerekir. Tabi bu requestin get ile gitmesi de yanlıştır. Bunun için csrf tokenları devreye girer. 
+
