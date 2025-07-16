@@ -134,3 +134,11 @@ Ama "www.hacker.com" adresine giren kişi böyle bir request gönderdiğinin far
 
 Csrf'in önüne geçmek için requestin kullanıcı tarafından bilinçli bir şekilde gönderilip gönderilmediğini tespit etmek gerekir. Tabi bu requestin get ile gitmesi de yanlıştır. Bunun için csrf tokenları devreye girer. 
 
+## **Rest API olması durumunda**
+
+Burada csrf token yoktur ama csrf zafiyeti de yoktur. Çünkü browser request'i hacker.com'a gönderirken cookie'leri otomatik ekliyor bu yüzden header'daki alanlara erişemez. 
+
+<img width="647" height="258" alt="image" src="https://github.com/user-attachments/assets/a2921e28-f53f-4658-893a-a277826db780" />
+
+## **Same Site Cookie**
+
