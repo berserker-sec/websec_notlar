@@ -142,3 +142,14 @@ Burada csrf token yoktur ama csrf zafiyeti de yoktur. Çünkü browser request'i
 
 ## **Same Site Cookie**
 
+SameSite niteliği, çerezlerin siteler arası isteklerle birlikte nasıl gönderileceğini tanımlayan HTTP çerezleri için bir güvenlik özelliğidir.
+
+Artık browser’larda şöyle bir yapı bulunmaktadır.
+
+```
+Set-Cookie: session=dhdhdhfhdhd; expires=Fri, 24-Apr-2024 19:50:52 GMT; SameSite
+```
+<img width="759" height="242" alt="image" src="https://github.com/user-attachments/assets/d4d9e38c-1599-45f3-aef4-464b44878cc8" />
+
+Same site cookie aslında bir siteden gelen set-cookie'nin o siteye özel olmasını sağlar. Csrf token'ı olmadığı takdirde csrf zafiyetinin çıkmaması için bu sorunu browserda engellemek mantıklı olacaktır. 
+
