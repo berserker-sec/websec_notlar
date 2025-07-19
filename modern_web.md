@@ -24,3 +24,13 @@ Sınıfta bir öğrenci "eeeyyy Ayşe" diye seslendi ve birisi gelip bize Ayşe'
 
 <img width="1687" height="544" alt="image" src="https://github.com/user-attachments/assets/1593bf4e-c774-4692-83c1-2a2384299e22" />
 
+## **Subnet**
+
+Aşağıdaki iki ip aynı ağda mı diye sorulsa ne cevap verirsiniz? Sorunun cevabı bilmiyorum olmalıdır çünkü aynı ağda oladabilir olmayadabilir. Aynı ağda olmaları subnetlere bağlıdır. 
+
+```
+10.0.0.5
+1.3.3.7
+```
+
+Subnet alt ağ demektir. Tanımı ise bir ip ağının alt bölümüdür. 
