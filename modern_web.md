@@ -34,3 +34,8 @@ Aşağıdaki iki ip aynı ağda mı diye sorulsa ne cevap verirsiniz? Sorunun ce
 ```
 
 Subnet alt ağ demektir. Tanımı ise bir ip ağının alt bölümüdür. 
+
+Buraya kadar yerel ağdan bahsedildi peki internette bir websitesine erişmeye çalışıldığında neler oluyor?
+
+## **DNS(Domain Name System)**
+
