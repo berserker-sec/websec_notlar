@@ -39,3 +39,6 @@ Buraya kadar yerel ağdan bahsedildi peki internette bir websitesine erişmeye �
 
 ## **DNS(Domain Name System)**
 
+Dns internette erişilmeye çalışılan alan adlarını ip'ye çeviren bir sistemdir. Kullanıcı bir websitesine gitmeden linux'ta etc/hosts dosyasında domain çözümlendirmesinin ne olacağını belirler. İlgili site ile ilgili dosyada eğer bir kayıt yoksa dns sunucusuna başvurulur. 
+
+<img width="1852" height="701" alt="image" src="https://github.com/user-attachments/assets/289876b1-8b53-4d9e-a300-80248d6e0076" />
