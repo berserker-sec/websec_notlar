@@ -51,5 +51,9 @@ Dns bilgileri ile ilgili örnek komut ve çıktı
 
 <img width="813" height="540" alt="image" src="https://github.com/user-attachments/assets/9fefa03b-6255-4645-b510-7c8f4db8765b" />
 
+## **NAT(Network address translation)**
+
+Network Address Translation(ağ adresi çevirisi), TCP/IP ağındaki bir bilgisayarın yönlendirme cihazı ile başka bir ağa çıkarken adres uzayındaki bir IP ile yeniden haritalandırma yaparak IP paket başlığındaki ağ adres bilgisini değiştirme sürecidir. Ipv4'te ip sayısı kısıtlı olduğundan Nat kullanımı gereklidir.
+
 
 
