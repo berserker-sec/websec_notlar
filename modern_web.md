@@ -42,3 +42,7 @@ Buraya kadar yerel ağdan bahsedildi peki internette bir websitesine erişmeye �
 Dns internette erişilmeye çalışılan alan adlarını ip'ye çeviren bir sistemdir. Kullanıcı bir websitesine gitmeden linux'ta etc/hosts dosyasında domain çözümlendirmesinin ne olacağını belirler. İlgili site ile ilgili dosyada eğer bir kayıt yoksa dns sunucusuna başvurulur. 
 
 <img width="1852" height="701" alt="image" src="https://github.com/user-attachments/assets/289876b1-8b53-4d9e-a300-80248d6e0076" />
+
+Dns sunucusuyla tcp veya udp vasıtasıyla haberleşilir. 8.8.8.8 dns'ine gidilerek girilmek istenen web sitesinin ip'si sorgulanır. Eğer bu bilgi, resolver dns'te yer almıyorsa route dns'e gidilerek sorgulanır. Eğer burada da yoksa Tld(Top level domain)'ye ulaşılır. Tld'nin işi *.com'ları bulmaktır. Eğer burada da yoksa authoritative dns'e yönlendirir. Burası dns kayıtlarının tutulduğu yerdir. 
+
+<img width="1847" height="688" alt="image" src="https://github.com/user-attachments/assets/c4edf8c3-a113-48cb-bb6d-45df0bed9f01" />
