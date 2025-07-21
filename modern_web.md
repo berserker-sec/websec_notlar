@@ -46,3 +46,10 @@ Dns internette erişilmeye çalışılan alan adlarını ip'ye çeviren bir sist
 Dns sunucusuyla tcp veya udp vasıtasıyla haberleşilir. 8.8.8.8 dns'ine gidilerek girilmek istenen web sitesinin ip'si sorgulanır. Eğer bu bilgi, resolver dns'te yer almıyorsa route dns'e gidilerek sorgulanır. Eğer burada da yoksa Tld(Top level domain)'ye ulaşılır. Tld'nin işi *.com'ları bulmaktır. Eğer burada da yoksa authoritative dns'e yönlendirir. Burası dns kayıtlarının tutulduğu yerdir. 
 
 <img width="1847" height="688" alt="image" src="https://github.com/user-attachments/assets/c4edf8c3-a113-48cb-bb6d-45df0bed9f01" />
+
+Dns bilgileri ile ilgili örnek komut ve çıktı
+
+<img width="813" height="540" alt="image" src="https://github.com/user-attachments/assets/9fefa03b-6255-4645-b510-7c8f4db8765b" />
+
+
+
