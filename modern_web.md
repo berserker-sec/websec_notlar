@@ -59,5 +59,9 @@ Network Address Translation(ağ adresi çevirisi), TCP/IP ağındaki bir bilgisa
 
 3-way handshake'ten sonra http'ye çıkılabilir. Http, OSI modelinde en üst yani 7. kat olan uygulama katmanındadır. Bir http requesti gönderildiğinde bir tane de response alınır. 7. katmanda sadece bu iki paket varken alt katmanlarda yüzlerce paket gönderilmektedir.
 
+## **Firewall Hakkında**
 
+80 portu ile firewall'un üzerinden geçeriz. Firewall bir güvenlik duvarıdır, yaptığı iş ise ağa gelen giden paketleri kontrol etmektir. Bir çeşit ağ yönetim aracı gibi düşünülebilir.
+
+<img width="1862" height="672" alt="image" src="https://github.com/user-attachments/assets/2a375679-f19a-448e-8b91-61786f356b0a" />
 
