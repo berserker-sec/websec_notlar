@@ -55,5 +55,9 @@ Dns bilgileri ile ilgili örnek komut ve çıktı
 
 Network Address Translation(ağ adresi çevirisi), TCP/IP ağındaki bir bilgisayarın yönlendirme cihazı ile başka bir ağa çıkarken adres uzayındaki bir IP ile yeniden haritalandırma yaparak IP paket başlığındaki ağ adres bilgisini değiştirme sürecidir. Ipv4'te ip sayısı kısıtlı olduğundan Nat kullanımı gereklidir.
 
+## **Http'ye çıkma**
+
+3-way handshake'ten sonra http'ye çıkılabilir. Http, OSI modelinde en üst yani 7. kat olan uygulama katmanındadır. Bir http requesti gönderildiğinde bir tane de response alınır. 7. katmanda sadece bu iki paket varken alt katmanlarda yüzlerce paket gönderilmektedir.
+
 
 
