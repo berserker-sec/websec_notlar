@@ -65,3 +65,8 @@ Network Address Translation(ağ adresi çevirisi), TCP/IP ağındaki bir bilgisa
 
 <img width="1862" height="672" alt="image" src="https://github.com/user-attachments/assets/2a375679-f19a-448e-8b91-61786f356b0a" />
 
+Firewall'un üzerindeki kurallardan geçildikten sonra web sunucusuna erişilebilir. Sağ taraftaki kısım sunucular bölgesidir yani DMZ.
+
+<img width="1741" height="684" alt="image" src="https://github.com/user-attachments/assets/8aaa2ab7-04c0-4118-a8a8-423740765012" />
+
+## **Syn flood attack**
