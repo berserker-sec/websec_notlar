@@ -74,3 +74,33 @@ Firewall'un üzerindeki kurallardan geçildikten sonra web sunucusuna erişilebi
 TCP 3-Way Handshake'in suistimali sonucu TCP-syn atağı gerçekleşmektedir. Saldırgan rastgele bir kaynak ip'si ile syn paketi gönderir. Web sunucusu bu rastgele ip'ye syn-ack gönderir ama cevap alamaz. Bu durumda sunucu yarım kalmış bu bağlantılarla dolmaya başlar ve sunucunun kaynakları tükenir. Firewall'lar ise sunuculara nazaran çok daha güçlü kaynaklara sahiptir ve bu saldırılara özel tedbirleri vardır. Dolayısıyla web sunucusu olası bu tarz saldırılara karşı daha fazla bileşene ihtiyaç duymaz, bu görevi firewall üstlenir. 
 
 ## **Web Sunucusu**
+
+Burası web sunucusu. Günümüzde tüm işlemlerin ve teknolojilerin bu şekilde tek bir web sunucusunda bulunması pek mümkün değildir.
+
+<img width="949" height="742" alt="image" src="https://github.com/user-attachments/assets/313da87d-ed65-4603-8457-bb96373ccf19" />
+
+## **Virtual Hosting**
+
+Virtual hosting (sanal barındırma), bir web sunucusunun aynı anda birden fazla web sitesine hizmet verebilmesini sağlayan bir teknolojidir.
+
+<img width="1533" height="842" alt="image" src="https://github.com/user-attachments/assets/59e85590-acda-4b9b-ae9e-5c2866077b14" />
+
+Http'nin gönderdiği request'teki host alanındaki host adı yazıyorsa cihazın çağırdığı dosyayı host içerisinden vermektedir. Örnekte olduğu gibi sunucu bu isteği aldığında "site1.com için hangi dizin kullanılacak?" sorusunun cevabını arar.
+
+```
+GET /index.html HTTP/1.1
+Host: site1.com
+```
+
+Eğer konfigürasyonda site1.com için şöyle bir tanım varsa:
+
+```
+<VirtualHost *:80>
+    ServerName site1.com
+    DocumentRoot /var/www/site1
+</VirtualHost>
+
+Sunucu, bu durumda /var/www/site1/index.html dosyasını döner.
+```
+
+## **Sunucu Yetmediği Zaman Ne Yapılır? — Reverse Proxy**
