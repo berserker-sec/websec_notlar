@@ -104,3 +104,11 @@ Sunucu, bu durumda /var/www/site1/index.html dosyasını döner.
 ```
 
 ## **Sunucu Yetmediği Zaman Ne Yapılır? — Reverse Proxy**
+
+Bir e-ticaret sitesi indirim günlerinde yoğunluk yaşar. Bu durumlarda mevcut sunucu yetersiz kalır.
+
+Bunun için mevcut sunucudan 3 tane veri tabanından da 2 tane kurulduğunu varsayalım. Firewall'dan gelen reqestleri bunlara göndermemiz için bir reverse proxy ya da load balancer gerekmekte. Reverse proxy, istemciler (kullanıcılar) ile bir veya birden fazla arka uç sunucu (backend server) arasında duran bir sunucu türüdür. Kullanıcılar, doğrudan asıl sunucuya değil, reverse proxy'ye istek gönderir; reverse proxy bu isteği alır, arka uçtaki uygun sunucuya iletir ve gelen cevabı tekrar istemciye iletir. Load balancer (yük dengeleyici), gelen ağ trafiğini birden fazla sunucuya dağıtan bir sistemdir. Amaç, sistemin performansını ve erişilebilirliğini artırmak ve tek bir sunucunun aşırı yüklenmesini önlemektir. Reverse proxy ve road balancer farklı şeylerdir ancak reverse proxy aynı zamanda bir load balancer görevi de görebilir (örneğin Nginx, hem reverse proxy hem de load balancer olabilir).
+
+Reverse Proxy’nin web sunucusuna ilettiği request bu kısma geldikten sonra bu uygulamanın çalışırken oluşturduğu session eğer diskte tutuluyorsa artık bu request’lerin her seferinde aynı sunucuya gelmesi gerekmektedir. Çünkü oluşan session sadece tek bir sunucunun diskinde olmuş olur. Diğer sunucularda session bilgisi bulunmamış olur.
+
+<img width="939" height="724" alt="image" src="https://github.com/user-attachments/assets/e87cc5a4-5d4a-4f6e-9b2c-f58167ec9f5a" />
