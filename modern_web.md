@@ -112,3 +112,13 @@ Bunun için mevcut sunucudan 3 tane veri tabanından da 2 tane kurulduğunu vars
 Reverse Proxy’nin web sunucusuna ilettiği request bu kısma geldikten sonra bu uygulamanın çalışırken oluşturduğu session eğer diskte tutuluyorsa artık bu request’lerin her seferinde aynı sunucuya gelmesi gerekmektedir. Çünkü oluşan session sadece tek bir sunucunun diskinde olmuş olur. Diğer sunucularda session bilgisi bulunmamış olur.
 
 <img width="939" height="724" alt="image" src="https://github.com/user-attachments/assets/e87cc5a4-5d4a-4f6e-9b2c-f58167ec9f5a" />
+
+## **Mikroservis Hakkında**
+
+Eğer birden fazla db varsa sql proxy'e ihtiyaç duyulabilir. SQL proxy, istemci (client) ile veritabanı sunucusu (database server) arasına yerleştirilen, gelen SQL sorgularını yakalayan, yönlendiren, filtreleyen veya değiştiren ara katman yazılımıdır. Sql proxy sayesinde hangi db müsaitse ona göre sorgulama yapılır. Mikroservislerin çıkış noktası da burasıdır. Mikroservis, büyük ve karmaşık uygulamaları daha küçük ve bağımsız çalışan servislere bölen bir mimaridir.  
+
+<img width="1138" height="724" alt="image" src="https://github.com/user-attachments/assets/86fb70a4-a96d-4fdb-801b-df6edd3eb8c7" />
+
+Session'lar diskte tutulursa diğer sunucular tarafından erişilemez, db'de tutulursa sorgular artar. Bu gibi durumların meydana gelmemesi için redis var. 
+
+<img width="1118" height="757" alt="image" src="https://github.com/user-attachments/assets/54f9002f-f36b-4a60-aefe-77478def11c1" />
