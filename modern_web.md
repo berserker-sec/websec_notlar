@@ -122,3 +122,28 @@ Eğer birden fazla db varsa sql proxy'e ihtiyaç duyulabilir. SQL proxy, istemci
 Session'lar diskte tutulursa diğer sunucular tarafından erişilemez, db'de tutulursa sorgular artar. Bu gibi durumların meydana gelmemesi için redis var. 
 
 <img width="1118" height="757" alt="image" src="https://github.com/user-attachments/assets/54f9002f-f36b-4a60-aefe-77478def11c1" />
+
+## **Static Dosyalar**
+
+Uygulamalarda bulunan statik dosyaların tek bir sunucuda bulunmaması gerekir. Çünkü olası bir değişikilik durumunda artık o statik dosyalara erişilmeyecektir. Dolayısıyla bu sorunun çözümü için CDN (Content Delivery Network) mekanizmalarının olması gerekmektedir. CDN, web içeriğini coğrafi olarak dağılmış birçok sunucuya yayarak, kullanıcıların isteğini en yakın sunucudan karşılayan bir sistemdir. Böylece sayfa yüklenme süresi azalır, trafik dengelenir, sunucu yükü düşer ve güvenlik artar.
+
+Tüm bunların yanında sunucular bölgesinin aynısından bir tane daha bulunmaktadır. Eğer kullanılan hizmetlerde bir kesinti yaşanırsa hiçbir sorun yaşanmadan aynı şekilde devam edilebilmesi için bu şekidle bir kurtarıcı yapı da bulunmaktadır.
+
+<img width="1658" height="645" alt="image" src="https://github.com/user-attachments/assets/572f7629-9596-4163-aa6d-800609fe2abd" />
+
+## **Atak Vektörleri**
+
+Ağların ve internetin nasıl çalıştığının bilinmesi siber saldırılar anlaşılması için önemlidir. Buraya kadar internet ve ağlar üzerinde duruldu. Aşağıda ise atak vektörlerinden bahsedilmektedir. 
+
+### **Lokal Ağdaki Ataklar**
+Lokal ağda çıkan bir malware, dns taleplerini manipüle edebilir. Lokal ağda bulunan bir saldırgan, arp poisoning yapabilir. Router'ı ele geçiren bir saldırgan, iç ağda bulunan herkesin dns taleplerine kendisi sahte cevap dönebilir. 
+
+### **Sunucular Bölgesindeki Ataklar**
+Web sitesine giderken konuştuğumuz dns sunucuların herhangi biri üzerinden atak gerçekleşebilir. 
+1. DNS Spoofing (DNS Cache Poisoning) ile kullanıcı, sahte bir IP adresine yönlendirilebilir.
+2. DNS Hijacking ile kullanıcının, DNS sorguları gizlice ele geçirilebilir veya değiştirilebilir.
+3. DNS Amplification Attack (DNS Yükseltme Saldırısı). Bu saldırının amacı bir hedefe büyük ölçekli DDoS (Dağıtık Hizmet Reddi) saldırısı yapmaktır ve bunun sonucunda web sunucusu çökebilir.
+4. Man-in-the-Middle (DNS üzerinden) ile DNS isteği ortada yakalanıp sahte yanıtla değiştirilebilir.
+5. Typosquatting ve Fake DNS Kullanımı ile yazım hatalarını hedef alarak kullanıcı kandırılır.
+
+Firewall'un zafiyet barındırması durumunda ise yetkisiz erişim, saldırıların filtrelenmemesi(DDoS, XSS, SQLi vb.) ve saldırganların ağ taraması ve bilgi toplaması gibi durumlar yaşanabilir.
