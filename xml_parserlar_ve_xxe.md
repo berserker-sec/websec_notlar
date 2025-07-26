@@ -22,3 +22,9 @@ tarafından kolayca okunabilecek dokümanlar oluşturmaya yarayan bir işaretlem
 ```
 
 Xml günümüzde aktif değildir ama bazı servislerde kullanılmaktadır. 
+
+## **Programlama Dillerinde Xml parsing**
+
+Python'da Xml parse etme örneğinde xml olarak tanımlanan veri dictionary'e çevrilmiştir.
+
+<img width="678" height="636" alt="image" src="https://github.com/user-attachments/assets/3c0655aa-c4f6-4d4d-9715-a4a0ee452c64" />
