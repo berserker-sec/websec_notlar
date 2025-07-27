@@ -40,3 +40,15 @@ Input tracing, appsec'te çok önemli olan kısımdır. Uygulamanın aldığı i
 Bir web uygulaması başka bir yerden xml aldığında bunu parse etmesi gerekir. Input validation yapılması gerekirse bile bunun öncesinde parsing yapılmalıdır. Bir hacker'ın hedeflediği yer ise parsing anıdır.
 
 ## **XML DTD**
+
+XML DTD (Document Type Definition), bir XML belgesinin yapısını ve kurallarını tanımlamak için kullanılan bir belgelendirme sistemidir. 
+
+Burada dahili DTD (XML dosyası içinde tanımlanmış)
+
+<img width="603" height="454" alt="image" src="https://github.com/user-attachments/assets/4bed4cd2-ef96-4903-97e1-a77a4c357fc1" />
+
+Harici DTD (Başka bir dosyada tanımlanmış)
+
+<img width="329" height="398" alt="image" src="https://github.com/user-attachments/assets/b500da82-4393-4f71-82b1-f00c1e87fde5" />
+
+## **XML parser davranışları**
