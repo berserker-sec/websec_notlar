@@ -56,3 +56,13 @@ Harici DTD (Başka bir dosyada tanımlanmış)
 Xml parser ilk olarak kodda da görüldüğü üzere bir "DOCTYPE" tanımını görüyor. DTD'nin adı "note" ve "SYSTEM" operandı kullanılmış. SYSTEM'in yaptığı şey de external dtd. Yani xml parser ilk olarak external dtd'yi(Note.dtd) görür ve ondan xml'i parse eder. Note.dtd içindeki verilere göre note adındaki objeyi oluşturur. Bu durumda SYSTEM operandı sayesinde xml parser'a localdaki bir dosyayı okutabilme imkanı vardır ve bir hacker bu özelliği istismar edebilir. 
 
 <img width="898" height="489" alt="image" src="https://github.com/user-attachments/assets/ac3bfed0-50b2-4c4d-b3fb-308ea438ae49" />
+
+## **XXE**
+
+DTD'nin içerisinde sadece dosya değil aynı zamanda string ifadeleri de bulunabilir veya aşağıdaki örnekteki gibi bir element tanımlanabilir mesela.
+
+<img width="413" height="157" alt="image" src="https://github.com/user-attachments/assets/9eadd00d-e175-49bf-9fda-d66b76236f25" />
+
+Entity kullanarak da string ifadeler de yazdırılabilir.
+
+<img width="461" height="237" alt="image" src="https://github.com/user-attachments/assets/e3ab9dcf-3846-4ca4-b5ea-afe098dcf3a6" />
