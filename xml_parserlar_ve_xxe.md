@@ -66,3 +66,7 @@ DTD'nin içerisinde sadece dosya değil aynı zamanda string ifadeleri de buluna
 Entity kullanarak da string ifadeler de yazdırılabilir.
 
 <img width="461" height="237" alt="image" src="https://github.com/user-attachments/assets/e3ab9dcf-3846-4ca4-b5ea-afe098dcf3a6" />
+
+Burası hacker bakış açısıyla birşeylerin yapıldığı kısımdır. Kod aşağıdaki gibi olduğunda xml parser x.com adresine bir get requesti iletecektir.
+
+<img width="433" height="155" alt="image" src="https://github.com/user-attachments/assets/70290f52-f2c6-4eb6-9f96-60878e666a9f" />
