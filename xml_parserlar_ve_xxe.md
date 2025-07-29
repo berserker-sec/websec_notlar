@@ -70,3 +70,9 @@ Entity kullanarak da string ifadeler de yazdırılabilir.
 Burası hacker bakış açısıyla birşeylerin yapıldığı kısımdır. Kod aşağıdaki gibi olduğunda xml parser x.com adresine bir get requesti iletecektir.
 
 <img width="433" height="155" alt="image" src="https://github.com/user-attachments/assets/70290f52-f2c6-4eb6-9f96-60878e666a9f" />
+
+## **‘file’ ve ‘http’ Protocol Handler || SSRF**
+
+Dış dünyadan 80 portu ile ulaştığımız sunucuya elastic search ile 9002 portundan erişebiliriz. Bu da SSRF zafiyetine sebep olur. 
+
+<img width="485" height="102" alt="image" src="https://github.com/user-attachments/assets/08599469-8c1f-419c-b611-338d626820dd" />
