@@ -76,3 +76,14 @@ Burası hacker bakış açısıyla birşeylerin yapıldığı kısımdır. Kod a
 Dış dünyadan 80 portu ile ulaştığımız sunucuya elastic search ile 9002 portundan erişebiliriz. Bu da SSRF zafiyetine sebep olur. 
 
 <img width="485" height="102" alt="image" src="https://github.com/user-attachments/assets/08599469-8c1f-419c-b611-338d626820dd" />
+
+## **OOB XXE**
+
+Buradaki config dosyası okunmaya çalışıldığında xml hata verecektir.
+
+<img width="705" height="219" alt="image" src="https://github.com/user-attachments/assets/64bf1deb-61ba-4bed-bcf6-3d511a9e962e" />
+
+Üst satırda bulunan entity'de yazan dosya konumunun içindeki settings dosyası payl'a yazılacaktır. Aşağıdaki iç içe entity'de ise url kısmındaki p parametresinin değeri "payl"dir. Bu, xml yukarıdaki dosyada yazan içeriği parse edememesine sebep olur. 
+
+<img width="695" height="75" alt="image" src="https://github.com/user-attachments/assets/849362ca-becb-4ecd-b91c-c356bafb14f1" />
+
