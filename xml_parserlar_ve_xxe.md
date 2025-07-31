@@ -101,3 +101,8 @@ Buradaki config dosyası okunmaya çalışıldığında xml hata verecektir.
 ]>
 ```
 
+Sonra da web sunucusu test.dtd dosyasını almaya gider, "hacker.com" ise http response ile xml parser'ı döner, web uygulaması settings.xml'i okur ve en son hacker.com’a bir GET Request’i daha yollar. Bu gelen request’in URL’inde XML’in içeriğini de görmüş olursunuz. Buna da genel olarak Out-of-Band XML External Entity (OOB XXE) denilmektedir. Çünkü bu web uygulaması sınırın dışına gitmeye çalışmaktadır.
+
+<img width="1571" height="600" alt="image" src="https://github.com/user-attachments/assets/febf27b5-4d0d-496e-91af-8a0edadde022" />
+
+## **XXE nasıl engellenir?**
