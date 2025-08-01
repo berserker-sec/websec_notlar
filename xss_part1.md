@@ -12,4 +12,12 @@ uygulamanın hareket kabiliyetini belirler. XSS, %99 ihtimalle browsera dönen r
 
 <img width="1153" height="581" alt="image" src="https://github.com/user-attachments/assets/06e5ce8c-241f-4345-b66c-14ce0efbed57" />
 
-## **XSS tipleri**
+Arama kısmında "mehmet" şeklinde arama yapıldığında sayfada input görülebilmektedir. 
+
+<img width="474" height="60" alt="image" src="https://github.com/user-attachments/assets/379af923-fee4-483c-a367-ac33d679c1bf" />
+
+Sayfanın html'i incelendiğinde de aynı şekilde görülebilmektedir.
+
+<img width="400" height="46" alt="image" src="https://github.com/user-attachments/assets/be6e3446-0980-4420-bf05-561b748b7e65" />
+
+Browserdan web sunucusuna bir post reqesti gider ve requestte bulunan query string ya da post parametreleri ile arama kısmına yazılan içerik sunucuya ulaşır. Kullanıcının kontrol edebildiği bu mekanizma xss açığı barındırabilir. 
