@@ -56,3 +56,12 @@ Koda da bu şekilde yansır.
 
 Browser, <script>alert()</script> kısmını çalıştırmaması gerektiğini anlayamaz ve js kodunu çalıştırır. İşte xss'in başladığı nokta burasıdır. 
 
+## **Verilerin farklı ortamlardaki durumu**
+
+Web uygulamasına girilen data, php interpreterında bir data olsa da browsera response olarak geri döndüğünde data artık tag olur ve bu xss'i doğurur. 
+
+<img width="434" height="201" alt="image" src="https://github.com/user-attachments/assets/dcc0a012-53ac-40f8-9cc3-a2195f906f78" />
+
+Neden sürekli <script>alert()</script> denendiği sebebine gelirsek. Bu, pop-up çalıştırmamızı ve zafiyetin tespit edilmesini sağlar. İşin sömürü kısmına gelecek olursak frontend kısmının bozulması, cookilerin ve sessionların çalınması gibi şeylere yol açar xss.
+
+## **BEEF**
