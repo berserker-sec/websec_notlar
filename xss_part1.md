@@ -21,3 +21,38 @@ Sayfanın html'i incelendiğinde de aynı şekilde görülebilmektedir.
 <img width="400" height="46" alt="image" src="https://github.com/user-attachments/assets/be6e3446-0980-4420-bf05-561b748b7e65" />
 
 Browserdan web sunucusuna bir post reqesti gider ve requestte bulunan query string ya da post parametreleri ile arama kısmına yazılan içerik sunucuya ulaşır. Kullanıcının kontrol edebildiği bu mekanizma xss açığı barındırabilir. 
+
+## **DOM(Document Object Model) Mimarisi**
+
+Bir web sitesinde sayfayı incele kısmına tıklanıp görülen içerik ile sayfanın kaynak kodu arasında fark vardır. Çünkü sayfanın kaynak kodundaki içerik browser tarafından yorumlanmıştır. Kaynak kod kısmındaki js kodları browser'ın interpreter'ı tarafından çalıştırılmıştır ve bu js kodları DOM'un üstündeki hareketleri değiştirir. Http response'un içerisindeki html içerik, browser için bir inputtur ve bir hacker'ın amacı bu input'un içinde ufak manipülasyonlar yapmaktır. 
+
+Site içerisinde bir arama kutusuna isim yazdınız ve url'de bu hale geldi.
+
+```
+www.x.com/?keyword=mehmet
+```
+
+Kaynak kodu ise bu hale.
+
+```
+<div id="content">
+ <h2 id='pageName'>searched for: mehmet</h2>
+</div>
+```
+
+Eğer biz isim yazdığımız yere bu şekilde bir js kodu yazarsak yazılımcının istemediği bir şey yapmış oluruz.
+
+```
+www.x.com/?keyword=<script>alert()</script>
+```
+
+Koda da bu şekilde yansır.
+
+```
+<div id="content">
+ <h2 id='pageName'>searched for: <script>alert()</script></h2>
+</div>
+```
+
+Browser, <script>alert()</script> kısmını çalıştırmaması gerektiğini anlayamaz ve js kodunu çalıştırır. İşte xss'in başladığı nokta burasıdır. 
+
