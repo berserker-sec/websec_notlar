@@ -64,4 +64,5 @@ Web uygulamasına girilen data, php interpreterında bir data olsa da browsera r
 
 Neden sürekli <script>alert()</script> denendiği sebebine gelirsek. Bu, pop-up çalıştırmamızı ve zafiyetin tespit edilmesini sağlar. İşin sömürü kısmına gelecek olursak frontend kısmının bozulması, cookilerin ve sessionların çalınması gibi şeylere yol açar xss.
 
-## **BEEF**
+## **BEEF XSS exploitation framework**
+
