@@ -94,3 +94,7 @@ https://shorturl.at/mh965
 ```
 
 Bu url'e tıklayan bir kullanıcı, hedef websitesine gider ve giderken browser tüm cookieleri ekler.
+
+## **Stored XSS**
+
+Reflected xss'in web app'ten gelen response'ta olduğundan bahsetmiştik. Şimdi bundan daha kötü bir senaryodan bahsedeceğiz. Payload'ın db'e kaydedildiği durum yani stored xss. Hatta bu db'den faydalanan başka web servisleri ve app'ler bile bu durumdan etkilenebilir. Stored xss kalıcı olarak sitede bulunur ve başka kullanıcılar da bundan etkilenir. Örneğin bir forum sayfasında bir saldırgan yorum olarak xss payload'ı ekledi. Yorumu gören bütün site kullanıcıları bu xss saldırısına maruz kalır. 
