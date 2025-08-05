@@ -98,3 +98,30 @@ Bu url'e tıklayan bir kullanıcı, hedef websitesine gider ve giderken browser 
 ## **Stored XSS**
 
 Reflected xss'in web app'ten gelen response'ta olduğundan bahsetmiştik. Şimdi bundan daha kötü bir senaryodan bahsedeceğiz. Payload'ın db'e kaydedildiği durum yani stored xss. Hatta bu db'den faydalanan başka web servisleri ve app'ler bile bu durumdan etkilenebilir. Stored xss kalıcı olarak sitede bulunur ve başka kullanıcılar da bundan etkilenir. Örneğin bir forum sayfasında bir saldırgan yorum olarak xss payload'ı ekledi. Yorumu gören bütün site kullanıcıları bu xss saldırısına maruz kalır. 
+
+## **Self XSS**
+
+Bir banka uygulamasına adres bilgileri girildiğinde kod kısmında böyle gözüktüğünü varsayalım.
+
+```
+<html>
+ <header></header>
+ <body>
+  <textarea>
+   adres bilgileri...
+  </textarea>
+ </body>
+</html>
+```
+
+Adres yerine xss payloadı yazıldığında text'e dönüşecektir bu yüzden payload'ı yazarken <textarea> tag'i kapatılmalı. 
+
+```
+ <body>
+  <textarea>
+   </textarea><script>alert(1)</script>
+  </textarea>
+ </body>
+```
+
+Bu uygulamada kullanıcının kendisinden başka kimse adresini göremez. Dolayısıyla xss'i de kimse göremez yani bu bir self xss zafiyetidir. Self xss zafiyetini sömürmek için sosyal mühendislik gerekir.
