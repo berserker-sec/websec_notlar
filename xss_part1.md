@@ -125,3 +125,8 @@ Adres yerine xss payloadı yazıldığında text'e dönüşecektir bu yüzden pa
 ```
 
 Bu uygulamada kullanıcının kendisinden başka kimse adresini göremez. Dolayısıyla xss'i de kimse göremez yani bu bir self xss zafiyetidir. Self xss zafiyetini sömürmek için sosyal mühendislik gerekir.
+
+## **XSS nasıl engellenir?**
+
+Xss html ile birleşilen output'un verildiği yerde engellenir. Çünkü zafiyet oluştuğu yerde engellenmeli. Input validation ile form alanındaki taglerin gelmesi engellense bile uygulamaya başka yerlerden gelen inputlar yüzünden xss yine ortaya çıkacaktır. Bu yüzden tedbir alırken bütüncül yaklaşmak faydalı olacaktır.
+
