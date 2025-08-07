@@ -130,3 +130,95 @@ Bu uygulamada kullanıcının kendisinden başka kimse adresini göremez. Dolay�
 
 Xss html ile birleşilen output'un verildiği yerde engellenir. Çünkü zafiyet oluştuğu yerde engellenmeli. Input validation ile form alanındaki taglerin gelmesi engellense bile uygulamaya başka yerlerden gelen inputlar yüzünden xss yine ortaya çıkacaktır. Bu yüzden tedbir alırken bütüncül yaklaşmak faydalı olacaktır.
 
+### **Html Context**
+
+Kullanıcının, bu adrese gittiğini varsayalım.
+
+```
+www.x.com/?keyword=mehmet
+```
+
+Keyword parametresine bu şekilde xss payloadı yazarsak...
+
+```
+www.x.com/?keyword=<script>alert(1)</script>
+```
+
+Sayfanın içeriğinde buna benzer bir sonuç bekleriz
+
+```
+<html>
+ <body>
+  <p>
+   Aradığınız kelime <script>alert(1)</script>
+  </p>
+ </body>
+</html>
+```
+
+Eğer output encoding yapılmışsa sonuç böyle gözükür ve xss saldırısı da engellenir. Eğer tag olmazsa xss de olmaz.
+
+```
+<html>
+ <body>
+  <p>
+   Aradığınız kelime &lt;script&gt;alert(1)&lt;/script&gt;
+  </p>
+ </body>
+</html>
+```
+
+### **Attribute Context**
+
+Url'de verdiğimiz payload'ın, inputun value attribute'unda olduğunu varsayalım. 
+
+```
+<html>
+ <body>
+  <form>
+   <input name="keyword" value="<script>alert(1)</script>">
+  </form>
+ </body>
+</html>
+```
+
+Burada yazılan payload value'da olduğundan önce value attribute'undan kurtulmak gerekir. Bunun için;
+Payload'ı böyle verildiğinde.
+
+```
+www.x.com/?keyword="><script>alert(1)</script>
+```
+
+Sonuç da böyle olacaktır.
+
+```
+<html>
+ <body>
+  <form>
+   <input name="keyword" value=""><script>alert(1)</script>">
+  </form>
+ </body>
+</html>
+```
+
+Encoding yapılması bu saldırının da önüne geçecektir fakat tag'in dışına çıkmadan da saldırı yapılabilir.
+
+Saldırı kodu böyle olursa:
+
+```
+www.x.com/?keyword=" onmouseover="alert(1)
+```
+
+Mouse içeriğin üzerine geldiği anda pop-up çıkar.
+
+```
+<html>
+ <body>
+  <form>
+   <input name="keyword" value="" onmouseover="alert(1)">
+  </form>
+ </body>
+</html>
+```
+
+Bu saldırı yöntemlerinden dolayı ' ve " ların da encode edilmesi gerekmektedir. Hatta internet explorer'ın eski sürümlerinde `` yazıldığında tag kapanır. Yani ` işareti de encode edilmeli.
