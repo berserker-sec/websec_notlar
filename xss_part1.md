@@ -263,3 +263,38 @@ saveForm'un içinde çalışacaktır.
 
 ### **HREF Context**
 
+Eğer kullanıcı verisi href kısmının içine geliyorsa saldırganlar bu şekilde de pop-up çıkarabilir.
+
+```
+<html>
+ <body>
+  <a href="javascript:alert(1)">click me</a>
+ </body>
+</html>
+```
+
+Bundan da anlaşılacağı üzere her context'te encode edilmesi gereken karakter değişiyor. Peki developerlar xss'i nasıl engelleyecek?
+
+### **Developerlar için önlemler**
+
+Xss'in oluştuğu yer response'un body'sidir yani xss'in çözüleceği yer burasıdır. Alınan input doğrulanıp öyle encode edilmeli çünkü input'un encode edilmesi veriyi bozabilir. 
+
+Buradaki motto şu olmalıdır : "Input validation, output encoding".
+
+Yazılımcı bu işe bakarken ilk olarak context'e bakmalı.
+
+```
+<html>
+ <body>
+  <a href="{{encoder.HrefContextEncoder($untrusted_data)}}">click me</a>
+ </body>
+</html>
+```
+
+Eğer sadece untrusted data verilirse browser'ın temel encodingleri yapılmış olur. 
+
+```
+<a href="{{$untrusted_data}}">click me</a>
+```
+
+Bu yüzden encoding kütüphanelerini kullanarak context'e özel encoding yapılmalı.
