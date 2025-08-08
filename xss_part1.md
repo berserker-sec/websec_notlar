@@ -222,3 +222,44 @@ Mouse içeriğin üzerine geldiği anda pop-up çıkar.
 ```
 
 Bu saldırı yöntemlerinden dolayı ' ve " ların da encode edilmesi gerekmektedir. Hatta internet explorer'ın eski sürümlerinde `` yazıldığında tag kapanır. Yani ` işareti de encode edilmeli.
+
+### **JSINLINE CONTEXT**
+
+Id parametresi olan bir url.
+
+```
+www.x.com/?id=
+```
+
+Html kodları.
+
+```
+<html>
+ <body>
+  <form>
+   <input name="button" onclick="saveForm()">
+  </form>
+ </body>
+</html>
+```
+
+Eğer id parametresine alert(1) verilirse...
+
+```
+www.x.com/?id=alert(1)
+```
+
+saveForm'un içinde çalışacaktır.
+
+```
+<html>
+ <body>
+  <form>
+   <input name="button" onclick="saveForm(alert(1))">
+  </form>
+ </body>
+</html>
+```
+
+### **HREF Context**
+
