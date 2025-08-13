@@ -12,10 +12,30 @@ Burada user'ın kontrol edebildiği inputlar direkt developer'ın yazdığı kod
   <div id="msgArea">
   </div>
   <script>
-    user = getUsername(); //API'den mevcut user'ın isminin getirilmesi
+    username = getUsername(); //API'den mevcut user'ın isminin getirilmesi
     var username = document.getElementById()
 
     $("#msgArea").html('Merhaba' + username);
   </script>
  </html>
 ```
+
+Bir kullanıcı bir web uygulamasına kayıt olurken bir form doldurma yetkisine sahiptir. Girdiği kullanıcı adı veya şifre gibi bilgiler veri tabanına kaydedilir. Db'e kaydedildikten sonra uygulama, bilgileri kullanıcıya gösterecektir. Göstermek için de dom'u günceller. Yani kullanıcıdan gelen değişken dom'da değişikliğe sebep olur. 
+
+Eğer username olarak <svg onload=alert(1)> yazarsak
+
+```
+<html>
+  <div id="msgArea">
+  </div>
+  <script>
+    username = getUsername(); //API'den mevcut user'ın isminin getirilmesi
+
+    $("#msgArea").html('Merhaba' + username);
+
+    document.getElementById('msgArea').innerHTML = 'Merhaba <svg onload=alert(1)>';
+  </script>
+ </html>
+```
+
+js id'si "msgArea" olan html tag'ına "<svg onload=alert(1)>" kodunu yerleştirir.
