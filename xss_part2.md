@@ -47,3 +47,46 @@ username = "mehmet%3c"
 $("msgArea").html('Merhaba '+ unescape(username));
 ```
 
+Uygulamadaki tüm kodları baştan aşağı incelemektense aşağıdaki gibi dom update'in gerçekleşmesini sağlayan jquery fonksiyonlarını incelemek mantıklı olacaktır.
+
+```
+Safe
+.text()
+.attr() // still needs to be careful when used in an href
+.prop()
+.val()
+Unsafe
+$("html code")
+.html()
+.append*()
+.insert*()
+.prepend*()
+.wrap*()
+.before()
+.after()
+
+https://coderwall.com/p/h5lqla/safe-vs-unsafe-jquery-methods
+```
+
+## **Post Message**
+
+
+
+```
+<html>
+  <head><title>Toxic DOM</title></head>
+  <body>
+    <script>
+      var postMessageHandler = function(msg) {
+  var content = JSON.parse(msg.data);
+  var div = document.createElement('div');
+  div.innerHTML = content.html;
+  document.documentElement.appendChild(div);
+};
+
+window.addEventListener('message', postMessageHandler, false);
+
+    </script>
+  </body>
+</html>
+```
