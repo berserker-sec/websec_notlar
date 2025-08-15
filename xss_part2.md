@@ -95,3 +95,31 @@ window.addEventListener('message', postMessageHandler, false);
 
 "hacker.com" isminde bir web sitesi düşünelim. Bu websitesi browser tarafından çağrılıyor. hacker.com'da bir iframe açılacak. Açılan iframe'de ise "https://public-firing-range.appspot.com/dom/toxicdom/postMessage/innerHtml" url'i olacak. Bu url, xss zafiyeti barındıran bir sitenin. Iframe ile açmamızın sebebi ise bu web sitesinin içeriğinde kendisini iframe ile açan kişinin gönderdiği mesajları dinleyen ve buna göre aksiyon alan bir JavaScript kodunun olmasıdır. hacker.com’da browser tarafından iframe ile açtığımız bağlantıya bir json verisi gönderilecek ve alınan bu json parse edildikten sonra ‘content’ elde edilecektir. Daha sonra bu content içeriği innerHTML ile direkt olarak div içerisine yazdırılır. Burada innerHTML kullanımı tehlikelidir.
 
+Innerhtml'in tehlikeli olma sebebi aşağıdaki koddan da anlaşılabilir. Innerhtml *<svg onload=alert(1)>* payload'ını domun içine ekliyor. 
+
+```
+<html>
+  <script>
+      var div = document.createElement("div");
+      div.innerHTML = "<svg onload=alert(1)>";
+      document.documentElement.appendChild(div);
+  </script>
+  <body>
+    <div id="test"></div>
+  </body>
+</html>
+```
+
+Aşağıdaki kaynak kodlara sahip hacker.com web sitesinde, iframe ile bu sayfa açıldığını varsayarsak. Sayfa açıldığında bizi xss barındıran siteye götürecektir. 
+
+```
+<html>
+  <body>
+    <iframe
+      src="https://public-firing-range.appspot.com
+       /dom/toxicdom/postMessage/innerHtml">
+
+    </iframe>
+  </body>
+</html>
+```
