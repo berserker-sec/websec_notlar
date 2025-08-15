@@ -70,7 +70,7 @@ https://coderwall.com/p/h5lqla/safe-vs-unsafe-jquery-methods
 
 ## **Post Message**
 
-
+Bu kodda görüldüğü üzere bir eventlistener var. Eventlistener'ın yaptığı şey ise mesaj geldiğinde postMessageHandler isimli fonksiyona göndermek. Fonksiyon, gelen mesajın bir json olmasını bekliyor. Json parse edildiğinde oluşan content'i alınıp bir div oluşturuluyor. Bu div'in içine gelen mesajı innerhtml ile yerleştiriyor, oluşan divi sayfaya ekliyor ve bu sayfada bir xss var. 
 
 ```
 <html>
@@ -90,3 +90,8 @@ window.addEventListener('message', postMessageHandler, false);
   </body>
 </html>
 ```
+
+### **Peki bu xss nasıl oluşuyor?**
+
+"hacker.com" isminde bir web sitesi düşünelim. Bu websitesi browser tarafından çağrılıyor. hacker.com'da bir iframe açılacak. Açılan iframe'de ise "https://public-firing-range.appspot.com/dom/toxicdom/postMessage/innerHtml" url'i olacak. Bu url, xss zafiyeti barındıran bir sitenin. Iframe ile açmamızın sebebi ise bu web sitesinin içeriğinde kendisini iframe ile açan kişinin gönderdiği mesajları dinleyen ve buna göre aksiyon alan bir JavaScript kodunun olmasıdır. hacker.com’da browser tarafından iframe ile açtığımız bağlantıya bir json verisi gönderilecek ve alınan bu json parse edildikten sonra ‘content’ elde edilecektir. Daha sonra bu content içeriği innerHTML ile direkt olarak div içerisine yazdırılır. Burada innerHTML kullanımı tehlikelidir.
+
