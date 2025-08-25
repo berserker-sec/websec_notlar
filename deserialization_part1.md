@@ -31,4 +31,64 @@ class User{
 $user = new User("Mehmet","İnce");
 ```
 
-$user objesi bir yerde tutulmalıdır. 
+$user objesi bir yerde tutulmalıdır. Yoksa request response döngüsünde her seferinde gerekli işlemler tekrar edilmek zorunda. 
+
+
+Kodda kullanıcı adının terminale yazdırılmasını sağlayan değişikliklerin yapılmış hali.
+
+```
+<?php
+
+class User{
+    var $firstname;
+    var $lastname;
+
+    function __construct($firstname= "", $lastname=""){
+        $this->firstname=$firstname;
+        $this->lastname=$lastname;
+    }
+    function __toString(){
+        return $this->firstname." ".$this->lastname."\n";
+    }
+}
+// User'a ait bilgiler db'den sessionId ile elde edildi. 
+// ve User sınıfı oluşturuldu.
+$user = new User("Mehmet","İnce");
+
+echo $user;
+```
+
+Kodun çıktısı
+
+<img width="411" height="131" alt="image" src="https://github.com/user-attachments/assets/290887ac-523a-4bdf-8b42-e2612fbd3b7d" />
+
+Kod, her çalıştırdında bu fonksiyonlar tekrar çalışacaktır. Session'dan istediğimiz veriyi elde edip tekrardan sınıfa dönmemiz lazım. İşte serialization'ın işe yaradığı kısım burasıdır. 
+
+```
+<?php
+
+class User{
+    var $firstname;
+    var $lastname;
+
+    function __construct($firstname="",$lastname="")
+    {
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+    }
+    function __toString(){
+        return $this->firstname." ".$this->lastname."\n";
+    }
+}
+
+$user = new User("Mehmet","Ince");
+
+$store_somewhere = serialize($user);
+
+echo $store_somewhere;
+
+```
+
+Kodun yeni halinin çıktısı.
+
+<img width="784" height="112" alt="image" src="https://github.com/user-attachments/assets/761cd1b0-f70d-45ba-acd4-d719373e48bf" />
