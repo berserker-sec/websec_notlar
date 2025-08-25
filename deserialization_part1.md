@@ -11,3 +11,24 @@ tutulmaz. İşte serialization devreye girer. Örneğin bir programlama dilinde 
 çevrilebilir hale getirilebilir.
 
 ### **Kod Örneği**
+
+Bu kodda User isminde bir sınıf tanımlanmıştır. "firstname" ve "lastname" adında iki adet property tanımlanmıştır. Yapıcı bir metot olan constructor tanımlanmıştır. $user adında bir User tanımlanmıştır ve buna da "Mehmet","İnce" değerleri atanmıştır.
+
+```
+<?php
+
+class User{
+    var $firstname;
+    var $lastname;
+
+    function __construct($firstname="",$lastname="")
+    {
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+    }
+}
+
+$user = new User("Mehmet","İnce");
+```
+
+$user objesi bir yerde tutulmalıdır. 
