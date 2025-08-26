@@ -95,3 +95,36 @@ Kodun yeni halinin çıktısı.
 
 Tanımladığımız sınıfta bir "User" objesi oluşturduk. Sınıfa ait 2 tane property tanımladık. Yapıcı metot tanımladık. Çıktıdaki 'O:4' ifadesi bir php objesi olduğunu ve bu objenin 4 karakterden oluştuğunu ifade eder. Çıktıdaki '2' ise 2 tane property olduğu anlamına gelir. Parantezlerin içerisindeki değerler 'string:karakter sayisi:property ismi' şeklindedir.
 
+Koda destruct metodu ekleyelim.
+
+```
+<?php
+
+class User{
+    var $firstname;
+    var $lastname;
+
+    function __construct($firstname="",$lastname="")
+    {
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+    }
+    function __toString(){
+        return $this->firstname." ".$this->lastname."\n";
+    }
+    function __destruct() {
+        echo "Object destruction:".$this->firstname."".$this->lastname."\n";
+    }
+}
+
+$user = new User("Mehmet","Ince");
+
+$store_somewhere = serialize($user);
+
+
+
+echo $store_somewhere;
+```
+
+Yeniden bir serialization işlemi gerçekleştirdiğimizde herhangi bir şekilde ‘__destruct’ fonksiyonunu çağırmasak bile bu fonksiyon çalıştırılacaktır. PHP burada bu sınıfı oluşturduktan sonra yani User sınıfı ile işi bittikten sonra __destruct() fonksiyonunu çağırmaktadır. Yani __destruct() fonksiyonu otomatik olarak çağrılmaktadır.
+
