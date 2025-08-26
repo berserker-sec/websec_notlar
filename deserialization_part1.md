@@ -92,3 +92,6 @@ echo $store_somewhere;
 Kodun yeni halinin çıktısı.
 
 <img width="784" height="112" alt="image" src="https://github.com/user-attachments/assets/761cd1b0-f70d-45ba-acd4-d719373e48bf" />
+
+Tanımladığımız sınıfta bir "User" objesi oluşturduk. Sınıfa ait 2 tane property tanımladık. Yapıcı metot tanımladık. Çıktıdaki 'O:4' ifadesi bir php objesi olduğunu ve bu objenin 4 karakterden oluştuğunu ifade eder. Çıktıdaki '2' ise 2 tane property olduğu anlamına gelir. Parantezlerin içerisindeki değerler 'string:karakter sayisi:property ismi' şeklindedir.
+
