@@ -144,6 +144,8 @@ Deserialization işleminin gerçekleştiğini gösteren çıktı.
 
 <img width="1215" height="117" alt="image" src="https://github.com/user-attachments/assets/cf7135e7-4f52-4c0c-8342-6bbda55b45ed" />
 
+Kodlarda, objenin içindeki "User"dan User sınıfını bulduk. Bu sınıfa erişen bir objeyi bulduğumuz için serialize edip saklıyoruz. Bu sayede sürekli aynı işlemleri yapmaya gerek kalmıyoruz. 
+
 Koda destruct metodu ekleyelim.
 
 ```
@@ -175,5 +177,40 @@ $store_somewhere = serialize($user);
 echo $store_somewhere;
 ```
 
-Yeniden bir serialization işlemi gerçekleştirdiğimizde herhangi bir şekilde ‘__destruct’ fonksiyonunu çağırmasak bile bu fonksiyon çalıştırılacaktır. PHP burada bu sınıfı oluşturduktan sonra yani User sınıfı ile işi bittikten sonra __destruct() fonksiyonunu çağırmaktadır. Yani __destruct() fonksiyonu otomatik olarak çağrılmaktadır.
+Yeniden bir serialization işlemi gerçekleştirdiğimizde herhangi bir şekilde ‘__destruct’ fonksiyonunu çağırmasak bile bu fonksiyon çalıştırılacaktır. PHP burada bu sınıfı oluşturduktan sonra yani User sınıfı ile işi bittikten sonra __destruct() fonksiyonunu çağırmaktadır. Yani __destruct() fonksiyonu otomatik olarak çağrılmaktadır. Çıktı ise aşağıdaki gibi olmaktadır.
 
+<img width="493" height="86" alt="image" src="https://github.com/user-attachments/assets/7be37bce-1b76-477f-a123-4f8e35bea4ff" />
+
+Şimdi ise sınıf oluşturulurken çağrılan bir metot olan '__wakeup()' metodunu yazalım.
+
+```
+<?php
+
+class User{
+    var $firstname;
+    var $lastname;
+
+    function __construct($firstname="",$lastname="")
+    {
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+    }
+    function __toString(){
+        return $this->firstname." ".$this->lastname."\n";
+    }
+    function __destruct(){
+        echo "Object destruction: ".$this->firstname." ".$this->lastname;
+    }
+    function __wakeup(){
+        echo "SINIF UYANDIRILDI! ";
+    }
+}
+
+$user = new User("Mehmet","Ince");
+
+$store_somewhere = serialize($user);
+```
+
+Kodun çıktısı bu şekilde olacaktır.
+
+<img width="522" height="74" alt="image" src="https://github.com/user-attachments/assets/b5e1f9a6-eae9-419c-8a0a-2c5c9d3855ab" />
