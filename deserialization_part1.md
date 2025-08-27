@@ -95,6 +95,55 @@ Kodun yeni halinin çıktısı.
 
 Tanımladığımız sınıfta bir "User" objesi oluşturduk. Sınıfa ait 2 tane property tanımladık. Yapıcı metot tanımladık. Çıktıdaki 'O:4' ifadesi bir php objesi olduğunu ve bu objenin 4 karakterden oluştuğunu ifade eder. Çıktıdaki '2' ise 2 tane property olduğu anlamına gelir. Parantezlerin içerisindeki değerler 'string:karakter sayisi:property ismi' şeklindedir.
 
+Yeni dosyalarımızı oluşturup inceleyelim
+
+#### **serialize.php dosyası**
+```
+serialize.php
+<?php
+require_once("user_class.php");
+
+$user = new User("Mehmet","İnce");
+
+$store_somewhere = serialize($user);
+
+echo $store_somewhere;
+```
+
+#### **user_class.php dosyası**
+```
+<?php
+
+class User{
+    var $firstname;
+    var $lastname;
+
+    function __construct($firstname= "", $lastname=""){
+        $this->firstname=$firstname;
+        $this->lastname=$lastname;
+    }
+    function __toString(){
+        return $this->firstname." ".$this->lastname."\n";
+    }
+}
+```
+
+#### **deserialize.php dosyası**
+```
+<?php
+require_once("user_class.php");
+
+$deserialize_str = 'O:4:"User":2:{s:9:"firstname";s:6:"Mehmet";s:8:"lastname";s:4:"Ince";}';
+
+$user = unserialize($ $deserialize_str);
+
+echo $user;
+```
+
+Deserialization işleminin gerçekleştiğini gösteren çıktı.
+
+<img width="1215" height="117" alt="image" src="https://github.com/user-attachments/assets/cf7135e7-4f52-4c0c-8342-6bbda55b45ed" />
+
 Koda destruct metodu ekleyelim.
 
 ```
