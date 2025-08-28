@@ -214,3 +214,33 @@ $store_somewhere = serialize($user);
 Kodun çıktısı bu şekilde olacaktır.
 
 <img width="522" height="74" alt="image" src="https://github.com/user-attachments/assets/b5e1f9a6-eae9-419c-8a0a-2c5c9d3855ab" />
+
+Objeyi kendi tarafımızda taşımaktansa User'ın cookie'sine verebiliriz. Browser bu değeri bize geri verecektir biz de deserialize edebiliriz.
+
+#### **serialize.php dosyası**
+```
+<?php
+require_once("user_class.php");
+
+$user = new User("Mehmet","İnce");
+
+$store_somewhere = serialize($user);
+
+$http->setcookie("User", $store_somewhere);
+
+//echo $store_somewhere;
+```
+
+#### **deserialize.php dosyası**
+```
+<?php
+
+require_once("user_class.php");
+
+$deserialize_str = $payload; //untrusted source
+
+$user = unserialize( $deserialize_str);
+
+
+//echo $user;
+```
