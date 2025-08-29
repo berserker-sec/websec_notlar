@@ -217,8 +217,8 @@ Kodun çıktısı bu şekilde olacaktır.
 
 Objeyi kendi tarafımızda taşımaktansa User'ın cookie'sine verebiliriz. Browser bu değeri bize geri verecektir biz de deserialize edebiliriz.
 
-#### **serialize.php dosyası**
 ```
+//serialize.php dosyası
 <?php
 require_once("user_class.php");
 
@@ -231,16 +231,107 @@ $http->setcookie("User", $store_somewhere);
 //echo $store_somewhere;
 ```
 
-#### **deserialize.php dosyası**
+Artık güvensiz bir kaynaktan aldığımız bir string'i deserialize etmeye başlıyoruz.
+
 ```
+//deserialize.php dosyası
 <?php
 
 require_once("user_class.php");
 
 $deserialize_str = $payload; //untrusted source
 
-$user = unserialize( $deserialize_str);
+$user = unserialize($deserialize_str);
 
 
 //echo $user;
 ```
+
+Php framework'ü bizden aldığı veriyi unserialize ederse...
+
+```
+//serialize.php
+<?php
+require_once("user_class.php");
+
+$user = new User("Mehmet","İnce");
+
+$store_somewhere = serialize($user);
+
+echo $store_somewhere;
+```
+
+Çıktı
+```
+"User":2:{s:9:"firstname";s:6:"Mehmet";s:8:"lastname";s:5:"İnce";}Object destruction: Mehmet İnce
+```
+
+Burada payload'ı değiştirebilme yetkimiz var. Peki "User"ı silip "mdisec" yazarsak ne olur?
+
+```
+<?php
+
+require_once("user_class.php");
+
+$payload = "";
+
+$payload = 'O:4:"mdisec":2:{s:9:"firstname";s:6:"Mehmet";s:8:"lastname";s:4:"Ince";}';
+
+$user = unserialize( $payload);
+
+echo $user;
+```
+
+Hata çıktısı
+
+```
+Warning: unserialize(): Error at offset 9 of 72 bytes in C:\Users\Samed\php_proje\php_kodları\deserialize.php on line 11
+```
+
+Karakter sayısını 4 yerine 6 yapalım.
+
+```
+<?php
+
+require_once("user_class.php");
+
+$payload = "";
+
+$payload = 'O:6:"mdisec":2:{s:9:"firstname";s:6:"Mehmet";s:8:"lastname";s:4:"Ince";}';
+
+$user = unserialize( $payload);
+
+echo $user;
+```
+
+Yine hata aldık çünkü "mdisec" isminde bir class yok.
+
+```
+Fatal error: Uncaught Error: Object of class __PHP_Incomplete_Class could not be converted to string in C:\Users\Samed\php_proje\php_kodları\deserialize.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\Users\Samed\php_proje\php_kodları\deserialize.php on line 15
+```
+
+Class ismini doğru yazalım ve başka bir değişiklik yapalım 'Mehmet' yerine 'Ahmet' yazıp karakter sayısını 5 girelim.
+
+```
+<?php
+
+require_once("user_class.php");
+
+$payload = "";
+
+$payload = 'O:4:"User":2:{s:9:"firstname";s:5:"Ahmet";s:8:"lastname";s:4:"Ince";}';
+
+$user = unserialize( $payload);
+
+echo $user;
+```
+
+Çıktı da bu şekildedir. Güvensiz kaynaktan alınan veriler doğrulanmadığı takdirde ciddi sorunlara yol açabilir.
+
+```
+SINIF UYANDIRILDI! Ahmet Ince Object destruction: Ahmet Ince
+```
+
