@@ -52,7 +52,7 @@ başka bir sınıf oluşturtacağız. Aşağıdaki kod da buna örnek verilebili
 $this -> is_admin = new Permissions();
 ```
 
-Deserialize.php kodundaki payload'ı güncelliyoruz.
+Deserialize.php kodundaki payload'ı güncelliyoruz. Artık "Permissions" isimli property'i de payload'a eklemiş olduk.
 
 ```
 <?php
@@ -74,4 +74,78 @@ $payload = 'O:4:"User":3:{s:9:"firstname";s:0:"";s:0:"";s:0:"";s:8:"is_admin";O:
 $user = unserialize( $payload);
 
 echo $user->is_Admin();
+```
+
+Yeni halinin çıktısı.
+
+```
+PS C:\Users\Samed\php_proje\php_kodları> php deserialize.php
+
+Deprecated: Creation of dynamic property User::$ is deprecated in C:\Users\Samed\php_proje\php_kodları\deserialize.php on line 17 
+
+Warning: unserialize(): Error at offset 66 of 85 bytes in C:\Users\Samed\php_proje\php_kodları\deserialize.php on line 17
+
+Fatal error: Uncaught Error: Call to a member function is_Admin() on false in C:\Users\Samed\php_proje\php_kodları\deserialize.php:19
+Stack trace:
+#0 {main}
+  thrown in C:\Users\Samed\php_proje\php_kodları\deserialize.php on line 19
+```
+
+Bu hatayı gidermek için manuel olarak serialize işlemini yapmalıyız. Fakat öncesinde user_class.php dosyasında bazı değişiklikler yapmalıyız. 
+
+```
+<?php
+
+class Permission{
+    var $permissionarr = array();
+}
+
+class User{
+    var $firstname;
+    var $lastname;
+    var $is_admin = 0;
+
+    function __construct($firstname="",$lastname="")
+    {
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->is_admin = new Permission(); // değişikliğin yapıldığı kod parçası.
+    }
+    function __toString(){
+        return $this->firstname." ".$this->lastname."\n";
+    }
+    function __destruct(){
+       //echo "Object destruction: ".$this->firstname." ".$this->lastname;
+    }
+    function __wakeup(){
+        //echo "SINIF UYANDIRILDI! ";
+    }
+    public function is_Admin(){
+        if ($this->is_admin){
+            return True;
+        return False;
+    }
+}
+
+}
+
+$user = new User("Mehmet","Ince");
+
+$store_somewhere = serialize($user);
+```
+
+Serialize işlemini gerçekleştirdiğimizde aşağıdaki çıktıyı alıyoruz. Permission sınıfı için permissionarr isminde bir property bulunmakta ve bizim hata alma sebebimiz de bu property'e payload'da yer vermememizden.
+
+```
+//serialize.php
+O:4:"User":3:{s:9:"firstname";s:6:"Mehmet";s:8:"lastname";s:5:"İnce";s:8:"is_admin";O:10:"Permission":1:{s:13:"permissionarr";a:0:{}}}
+```
+
+Permission sınıfımıza yeni bir magic metot ekliyoruz.
+
+```
+function __wakeup()
+    {
+        echo "ben uyandım mdi";
+    }
 ```
