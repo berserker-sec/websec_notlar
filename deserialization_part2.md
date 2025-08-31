@@ -149,3 +149,6 @@ function __wakeup()
         echo "ben uyandım mdi";
     }
 ```
+
+Kodumuzda User objesini 3 property'si bulunmakta. Bunlar; firstname, lastname ve is_admin. is_admin için integer değil obje gönderiyoruz. Gönderdiğimiz bu obje ise aslında Permissions sınıfına ait olan permissionsArr ve biz permissionsArr'ı başka bir objeye point edebiliyoruz. Property'leri kullanarak kendi sınıflarımızı oluşturabiliriz.
+
