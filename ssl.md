@@ -40,3 +40,11 @@ Bu yöntemde CA x.com'a http get request'i yollar. Eğer siz x.com domainine sah
 
 Pahalı bir yöntemdir ve bu yöntemde sertifikayı elden teslim alırsınız. 
 
+Ssl'e sahip değilseniz Ssl'e ulaşamıyorsunuz. Çünkü ortadaki adam sizi hep https'te tutar. Bu eskiden sslstrip ile yapılırdı. İlk request http beklenirdi, https ile gelen cevaplar http'ye çevrilebilirdi. Günümüzde artık requestlerin https olarak çıkması sağlanabiliyor bu da HSTS (HTTP Strict Transport Security).
+
+## **HSTS (HTTP Strict Transport Security)**
+
+Peki ortadaki adam olmazsa ne olur? Http requestine karşılık response'ta hsts header'ı bulunuyorsa artık tüm trafik https ile gitmek zorundadır. Browser bu bilgiyi kaydeder ve her zaman https ile gideceğini bilir. Siz artık bir siteyi HTTP ile ziyaret ettiğinizde bile eğer daha önce HSTS header’ı kayıtlı ise henüz oraya HTTP ile gitmeden HTTPS ile ulaşmış olursunuz. Browser bunu kaydettiği için 307 internal rediret ile sizi hedefe HTTPS ile ulaştırır.
+
+### **HSTS preload**
+
