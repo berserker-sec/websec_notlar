@@ -46,5 +46,8 @@ Ssl'e sahip değilseniz Ssl'e ulaşamıyorsunuz. Çünkü ortadaki adam sizi hep
 
 Peki ortadaki adam olmazsa ne olur? Http requestine karşılık response'ta hsts header'ı bulunuyorsa artık tüm trafik https ile gitmek zorundadır. Browser bu bilgiyi kaydeder ve her zaman https ile gideceğini bilir. Siz artık bir siteyi HTTP ile ziyaret ettiğinizde bile eğer daha önce HSTS header’ı kayıtlı ise henüz oraya HTTP ile gitmeden HTTPS ile ulaşmış olursunuz. Browser bunu kaydettiği için 307 internal rediret ile sizi hedefe HTTPS ile ulaştırır.
 
+Peki eğer internetin bahtsız bedevisiyseniz ve ilk defa bir web sitesine gittiğinizde ortadaki adam varsa ne olacak? İşte onun çözümü HSTS preload.
+
 ### **HSTS preload**
 
+HSTS Preload, web tarayıcılarına önceden belirlenmiş bir liste üzerinden sitelerin HSTS politikalarını yüklemelerine izin verir. Bu liste, browser üreticileri tarafından yönetilen bir güvenlik özelliğidir. Bir web sitesi, HSTS Preload listesine eklenirse, browser’lar bu siteye erişirken HTTP bağlantılarını otomatik olarak HTTPS'ye yönlendirecek ve kullanıcıları güvenli bir bağlantı üzerinden siteye ulaşmaya zorlayacaktır. HSTS Preload kullanmak, man-in-the-middle saldırılarına karşı daha etkili bir koruma sağlar ve kullanıcıların güvenli bir bağlantı üzerinden iletişim kurmalarını sağlar.
