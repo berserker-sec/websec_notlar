@@ -23,32 +23,4 @@ SSRF zafiyetini sonuçlarına göre ikiye ayırabiliriz. Basic SSRF ve Blind SSR
 
 # **SSRF ile XXE benzerliği**
 
-SSRF (Server-Side Request Forgery) ve XXE (XML External Entity) arasında bazı önemli benzerlikler vardır. Bu iki zafiyet farklı katmanlarda ortaya çıksa da temel etki mantığı açısından benzerlik taşır:
-
-## **Sunucu Tarafından İstek Gönderilmesi**
-
-İkisi de hedef sunucunun kendi adına istek göndermesine neden olur.
-
-SSRF: Siz URL gibi bir girdi verirsiniz, sunucu sizin belirttiğiniz adrese HTTP isteği atar.
-
-XXE: XML dosyasına eklediğiniz <!ENTITY> tanımı, sunucunun sizin gösterdiğiniz dosya veya URL’yi okumasına sebep olur.
-
-## **Internal (Dahili) Kaynaklara Erişim**
-
-Her iki saldırıda da saldırgan normalde dışarıya kapalı olan localhost (127.0.0.1), internal IP’ler (10.x.x.x) veya bulut metadata servisleri gibi kaynaklara erişebilir.
-
-SSRF’de doğrudan URL vererek yapılır;
-
-XXE’de ise ENTITY üzerinden file://, http://, ftp:// gibi protokollerle.
-
-## **Dosya Okuma / Veri Sızdırma**
-
-SSRF: Yanıt döndürülüyorsa, iç sistemlerden alınan hassas veriler sızdırılabilir.
-
-XXE: file:// ile sistemdeki dosyaları (ör. /etc/passwd) okuyabilirsiniz.
-
-## **Pivoting / Ağ Keşfi**
-
-İkisi de iç ağa erişim sağlayarak diğer servislerin keşfine olanak tanır.
-
-Örneğin metadata endpoint'leri, dahili API'ler veya admin panelleri.
+XXE zafiyetinde dtd aracılığıyla external entities tanımlayıp xml parser'a verdiğimiz bir url'e request gönderilebilir. Bu açıdan xxe zafiyetinin ssrf'le benzeriği bulunmaktadır.
