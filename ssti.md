@@ -1,4 +1,4 @@
-# **0x17 | SSTI
+# **0x17 | SSTI**
 
 Bir istemci, bir web uygulamasına erişmek istediğinde sunucuya http request'i gönderir ve sunucu da istemciye bir http response döner. Uygulamanın da bir mvc 
 mimarisi ile geliştirildiğini düşünelim. Bu durumda, requestin karşılandığı bir controller ve controller'ın da döneceği bir view var. Eski usül basit 
@@ -29,3 +29,20 @@ return view('home.html', name)
     </div>
 </html>
 ```
+
+Burada sadece name değişkeninin olduğu yer dinamik tanımlanmıştır. Peki template'in de dinamik olduğu durumda ne olacak? Mesela kullanıcıdan alınan verinin template
+olması gibi bir durum. Bu durum, template'in kullanıcı girdilerinden etkilendiği bir durumdur.
+
+```
+mditemplate = """"
+<html>
+    <div>
+        Merhaba {{ name }}
+    </div>
+</html>
+"""" 
+
+return view(mditemplate, name)
+```
+
+Yukarıdaki kod, buna bir örnektir. 
