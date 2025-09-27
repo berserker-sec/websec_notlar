@@ -46,3 +46,7 @@ return view(mditemplate, name)
 ```
 
 Yukarıdaki kod, buna bir örnektir. 
+
+# **Template Engine Tespiti**
+
+<img width="640" height="386" alt="image" src="https://github.com/user-attachments/assets/938e2c7a-a5f5-48bc-b831-3d50f965f1e8" />
