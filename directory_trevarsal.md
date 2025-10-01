@@ -20,6 +20,8 @@ return content
 ../../../../../../../../../../
 ```
 
+# **Null Byte ve Directory Traversal**
+
 Uygulamanın kullanıcıdan dosya adı yerine klasör adı aldığını varsayalım. `filename` parametresi yerine `folder` isminde bir parametremiz olsun. Bu parametreye girilecek değerden sonra `selam/liste.txt` adında bir uzantı gelsin. Bu durumda biz ne yaparsak yapalım. Bizden alınan değerden sonra mutlaka `selam/liste.txt` ifadesi gelecektir. 
 
 ```
