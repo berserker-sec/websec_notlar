@@ -19,3 +19,19 @@ return content
 
 ../../../../../../../../../../
 ```
+
+Uygulamanın kullanıcıdan dosya adı yerine klasör adı aldığını varsayalım. `filename` parametresi yerine `folder` isminde bir parametremiz olsun. Bu parametreye girilecek değerden sonra `selam/liste.txt` adında bir uzantı gelsin. Bu durumda biz ne yaparsak yapalım. Bizden alınan değerden sonra mutlaka `selam/liste.txt` ifadesi gelecektir. 
+
+```
+filename = request.get('folder') # asdasd
+
+path = BASE_PATH + 'static' + '/' + folder + 'selam/liste.txt'
+
+content = file.read(folder)
+
+/var/www/hackerconf.stream/static/../../../../../../folder/selam/liste.txt
+
+return content
+```
+
+Php'nin bazı eski versiyonlarında %00(null byte) ifadesini aynı sqli'daki yorum satırı gibi kullanarak kendisinden sonraki ifadeyle path'in birleşmemesi sağlanabiliyordu. 
