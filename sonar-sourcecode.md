@@ -35,4 +35,18 @@ Bu python kodunda güvenlik açığı bulunmaktadır.
 
 <img width="680" height="383" alt="image" src="https://github.com/user-attachments/assets/800fec42-de24-4ed9-8656-91795bfb20bc" />
 
+Kodun bu kısmında bir race condition(TOCTOU) zafiyeti vardır.
 
+```
+tmp = tempfile.mktemp(suffix='.pdf', prefix='stoqlib-reporting')
+report = report_class(tmp, *args, **kwargs)
+report.filename = tmp
+report.save()
+os.startfile(report.filename)
+```
+
+Senin kodda mktemp() → report.save() arasındaki zaman penceresi race condition yaratıyor; saldırgan bu pencereyi kullanarak dosya yolunu manipüle edip sunucuda istenmeyen yazma/çalıştırma gerçekleştirebilir. Çözüm: atomik temp dosya oluşturma (mkstemp/NamedTemporaryFile, fd üzerinden yazma) ve os.startfile() gibi sunucuda dosya açmayı kaldırmaktır.
+
+Bu c# kodunda bir güvenlik açığı bulunmaktadır.
+
+<img width="1200" height="675" alt="image" src="https://github.com/user-attachments/assets/322b2280-0abd-4483-8caf-d658fc36fae6" />
