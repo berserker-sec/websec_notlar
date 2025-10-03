@@ -1,6 +1,6 @@
 # **0x19 | Sonar Source Code İnceleme**
 
-Bu c# kodunda güvenlik açığı bulunmaktadır.
+## **Bu c# kodunda güvenlik açığı bulunmaktadır.**
 
 <img width="1200" height="675" alt="image" src="https://github.com/user-attachments/assets/16fcf988-4b6d-4e5b-9b6f-95254eb37e30" />
 
@@ -11,7 +11,7 @@ sadece paket yüklemekle kalmaz, onun yazdığı sistem komutlarını da çalı�
 nuget.StartInfo.Arguments = "install " + packageId + " -NonInteractive";
 ```
 
-Bu php kodunda güvenlik açığı bulunmaktadır.
+## **Bu php kodunda güvenlik açığı bulunmaktadır.**
 
 <img width="900" height="506" alt="image" src="https://github.com/user-attachments/assets/501da294-a75c-4d30-b18e-dd2d5c14e378" />
 
@@ -31,7 +31,7 @@ criteria.add(Restrictions.sqlRestriction(nodeParameterName + " = ?)",
 
 sqlRestriction'a verilen SQL fragmenti SQL derleyicisine doğrudan gidiyor. Sorgudaki kolon ismi/identifier (yani snmp...) kullanıcı kontrollü olduğunda saldırgan burada SQL sözdizimi bozacak veya yeni koşullar ekleyecek karakterler sokarak sorguyu manipüle edebilir. Değer (?) parametrelenmiş olsa da kolon adı parametrelenemez — bu yüzden parametrelenmiş kısım korunuyor olsa bile sorgu yapısını değiştirebilecek içerik hala mümkün.
 
-Bu python kodunda güvenlik açığı bulunmaktadır.
+## **Bu python kodunda güvenlik açığı bulunmaktadır.**
 
 <img width="680" height="383" alt="image" src="https://github.com/user-attachments/assets/800fec42-de24-4ed9-8656-91795bfb20bc" />
 
@@ -47,6 +47,18 @@ os.startfile(report.filename)
 
 Senin kodda mktemp() → report.save() arasındaki zaman penceresi race condition yaratıyor; saldırgan bu pencereyi kullanarak dosya yolunu manipüle edip sunucuda istenmeyen yazma/çalıştırma gerçekleştirebilir. Çözüm: atomik temp dosya oluşturma (mkstemp/NamedTemporaryFile, fd üzerinden yazma) ve os.startfile() gibi sunucuda dosya açmayı kaldırmaktır.
 
-Bu c# kodunda bir güvenlik açığı bulunmaktadır.
+## **Bu c# kodunda güvenlik açığı bulunmaktadır.**
 
 <img width="1200" height="675" alt="image" src="https://github.com/user-attachments/assets/322b2280-0abd-4483-8caf-d658fc36fae6" />
+
+Burada KeySize manuel olarak 4096 verilmiş. Aslında dışarıdan zaten public key import ediliyor ve bu da uyumsuzluğa yol açar. 
+
+## **Bu php kodunda güvenlik açığı bulunmaktadır.**
+
+<img width="1200" height="675" alt="image" src="https://github.com/user-attachments/assets/d8616b29-8b93-43c6-bf32-a76fe16ac2dd" />
+
+Burada regex kullanılmış ve regex bazen bypass edilebilir. "." karakterine izin verilmiş ve bu karakter ".." şeklinde kullanılırsa çeşitli güvenlik sorunlarına yol açabilir.
+
+```
+if (empty($site_id) || preg_match('/[^A-Za-z0-9._-]/', $site_id)) {
+```
