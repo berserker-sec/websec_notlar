@@ -13,4 +13,11 @@ işlem iki defa tekrarlanmış olur.
 
 <img width="1200" height="676" alt="image" src="https://github.com/user-attachments/assets/7625a920-704d-40c0-9326-bb00d85ec228" />
 
-Eğer ki bir şey cache'leniyor ise bu şeyin bir key'i ve value'su olmalıdır. Value zaten content'tir, peki key ne? Key; web cache'in protokol, domain, path ve query string ile ürettiği string'tir.
+Eğer ki bir şey cache'leniyor ise bu şeyin bir key'i ve value'su olmalıdır. Value zaten content'tir, peki key ne? Key; web cache'in protokol, domain, path ve query string ile ürettiği string'tir. Yani şuna benzer:
+
+```
+http    |x.com |/home|reklamlar=1
+protocol|domain| path|query string
+```
+
+Biz bu requesti ilk gönderdiğimizde cache server, bu mekanizmanın kendi içerisinde bir key üretiyor. Kullanıcının elinde böyle bir key yoksa bu request sunucuya gönderilmek zorunda. Sunucudan içerik dönüleceği zaman ise bu içeriğin cachelenebilir olup olmadığı kontrol edilmelidir. Mesela /privatekey cachelenemez. Bu yüzden web cache'e nelerin cachelenebileceği bildirilmelidir.
