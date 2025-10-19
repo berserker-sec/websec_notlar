@@ -20,4 +20,8 @@ http    |x.com |/home|reklamlar=1
 protocol|domain| path|query string
 ```
 
-Biz bu requesti ilk gönderdiğimizde cache server, bu mekanizmanın kendi içerisinde bir key üretiyor. Kullanıcının elinde böyle bir key yoksa bu request sunucuya gönderilmek zorunda. Sunucudan içerik dönüleceği zaman ise bu içeriğin cachelenebilir olup olmadığı kontrol edilmelidir. Mesela /privatekey cachelenemez. Bu yüzden web cache'e nelerin cachelenebileceği bildirilmelidir.
+Biz bu requesti ilk gönderdiğimizde cache server, bu mekanizmanın kendi içerisinde bir key üretiyor. Kullanıcının elinde böyle bir key yoksa bu request sunucuya gönderilmek zorunda. Sunucudan içerik dönüleceği zaman ise bu içeriğin cachelenebilir olup olmadığı kontrol edilmelidir. Mesela /privatekey cachelenemez. Bu yüzden web cache'e nelerin cachelenebileceği bildirilmelidir. Bunu da bildirirken aslında header'la bildiriyoruz. Yani response'a bir takım header value'ları yazmış oluyoruz. Bu response'u da web cache alır. Value ise key ile eşleştirilen gerçek önbellek içeriğidir.
+
+# **Web Cache Riskleri**
+
+`http://www.x.com/home/reklamlar=1` şeklinde bir adresle bir request gönderdiğimizi düşünelim. Daha sonra bize bir response dönecektir. Bize dönen response'un body'sine birşey enjekte edebilirsek ve endpoint de cachelenebiliyorsa bizden sonra bu endpointi ziyaret eden adama sunulacak içeriğe müdahele edebiliriz. Saldırgan perspektifiyle baktığımızda ciddi zararlara yol açabilecek şeylerdir bunlar. Web cache üzerinden bir istismar gerçekleşecekse bu durumda aklımıza endpoint zaten gelir. Peki endpointe bir request gönderildiğinde bunun cache üzerinden dönüp dönmediği nasıl anlaşılır?
