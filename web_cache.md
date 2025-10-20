@@ -25,3 +25,19 @@ Biz bu requesti ilk gönderdiğimizde cache server, bu mekanizmanın kendi içer
 # **Web Cache Riskleri**
 
 `http://www.x.com/home/reklamlar=1` şeklinde bir adresle bir request gönderdiğimizi düşünelim. Daha sonra bize bir response dönecektir. Bize dönen response'un body'sine birşey enjekte edebilirsek ve endpoint de cachelenebiliyorsa bizden sonra bu endpointi ziyaret eden adama sunulacak içeriğe müdahele edebiliriz. Saldırgan perspektifiyle baktığımızda ciddi zararlara yol açabilecek şeylerdir bunlar. Web cache üzerinden bir istismar gerçekleşecekse bu durumda aklımıza endpoint zaten gelir. Peki endpointe bir request gönderildiğinde bunun cache üzerinden dönüp dönmediği nasıl anlaşılır?
+
+Aşağıdaki gibi bir url ile request gönderdiğimizi düşünelim. Yani query stringe öncelikle kendimiz bir değer veriririz. Vereceğimiz bu rastgele query string değeri cache'ten gelmiş olamaz. Bu yüzden bunu ikinci defa gönderdiğimizde daha kısa bir zaman diliminde response döner.
+
+```
+http://wwww.x.com/?reklam=MDISEC
+```
+
+Bir diğer yöntem ise response'a bakmak. Çünkü cache sunucuların response'ta bize bazı bilgiler sunar. Örneğin:
+
+```
+HTTP/1.1 200
+Content-Type: text/html
+CF-Cache-Hit: OK/MISS
+```
+
+Cache mekanizmasını tespit ettikten sonra eğer content'e müdahele etmek istiyorsak bunu unkeyed değerler üzerinden yapmak daha makul olacaktır. Çünkü key’de kullanılan value’lar üzerinden cache poisoning yapmak çok zordur.
