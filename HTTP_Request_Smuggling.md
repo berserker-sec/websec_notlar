@@ -8,3 +8,9 @@ Http request'i load balancer'a gelir, load balancer bunu nginx'e, nginx de bunu 
 
 <img width="1459" height="212" alt="image" src="https://github.com/user-attachments/assets/1fe9c259-d9b6-4cf7-abb2-3793e3e8feb4" />
 
+3-way handshake sonrası tcp oturumunda biz bir http request'i göndeririz. Request'in içinde yer alacak text ifadeye bir örnek aşağıda bulunmaktadır.
+
+<img width="250" height="98" alt="image" src="https://github.com/user-attachments/assets/49dbd549-e215-4bda-996e-ac59240bdcc3" />
+
+Bu ifadenin gidebilmesi için karşı tarafa tcp paketlerinin gönderilmesi gerekmektedir. Karşı taraf bu paketleri bekleyecek ve `//` gördüğünde artık biz transport katmanından bir üst katmana request göndermeyi başarabiliriz. Veriler karşı tarafa gittikten sonra bir cevap dönecek. Tcp 1.0'de cevap alınana kadar ikinci istek atılamaz. Ama Tcp 2.0'de bu özellik yoktur. Peki biz request gönderirken başkası da request göndermiyor mu? Başkasıymış gibi request gönderebilir miyiz? Başkasına giden cevapları etkileyebilir miyiz?
+
