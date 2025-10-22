@@ -1,4 +1,4 @@
-# **0x1E | HTTP Request Smuggling**
+# **0x1E | HTTP Request Smuggling ve HTTP/2 Downgrade Saldırısı**
 
 Http request smuggling aynı zamanda http desync diye de geçer ve bir web zafiyetidir. Web zafiyetleri deyince akla genelde web uygulamaları gelir fakat bu zafiyet web 
 uygulamaları ile değil direkt web'in kendisiyle ilgilidir. 
@@ -12,6 +12,6 @@ Http request'i load balancer'a gelir, load balancer bunu nginx'e, nginx de bunu 
 
 <img width="250" height="98" alt="image" src="https://github.com/user-attachments/assets/49dbd549-e215-4bda-996e-ac59240bdcc3" />
 
-Bu ifadenin gidebilmesi için karşı tarafa tcp paketlerinin gönderilmesi gerekmektedir. Karşı taraf bu paketleri bekleyecek ve `//` gördüğünde artık biz transport katmanından bir üst katmana request göndermeyi başarabiliriz. Veriler karşı tarafa gittikten sonra bir cevap dönecek. Tcp 1.0'de cevap alınana kadar ikinci istek atılamaz. Ama Tcp 2.0'de bu özellik yoktur. Peki biz request gönderirken başkası da request göndermiyor mu? Başkasıymış gibi request gönderebilir miyiz? Başkasına giden cevapları etkileyebilir miyiz?
+Bu ifadenin gidebilmesi için karşı tarafa tcp paketlerinin gönderilmesi gerekmektedir. Karşı taraf bu paketleri bekleyecek ve `//` gördüğünde artık biz transport katmanından bir üst katmana request göndermeyi başarabiliriz. Veriler karşı tarafa gittikten sonra bir cevap dönecek. Tcp 1.0'de cevap alınana kadar ikinci istek atılamaz. Ama Tcp 2.0'de bu özellik yoktur. Peki biz request gönderirken başkası da request göndermiyor mu? Elbette gönderiyor. Başkasıymış gibi request göndermemiz durumunda veya başkasına giden cevapları etkileyebilmemiz durumunda bazı sorunlar ortaya çıkar. HTTP Request Smuggling, esasen bir aracı sunucuyu (proxy, load balancer) kandırarak, aynı TCP bağlantısı üzerinden birden fazla kullanıcının isteklerinin sırasını ve yorumlanma şeklini manipüle etmeye odaklanır. HTTP/2 Downgrade Saldırısında ise HTTP/2 protokolünü HTTP/1.1'e düşürerek, saldırgan HTTP/1.1 Request Smuggling gibi saldırılara zemin hazırlar. Çünkü HTTP/2, genellikle daha güvenli ve katı çerçeveleme kurallarına sahiptir.
 
 Http requestlerinde content lenght ve transfer encoding diye iki tane header var. Bunlardan gelen değere göre http servisi davranış gerçekleştirir. Request'imizin geçtiği yollarda, requestimizin load balancer'da farklı nginx'te farklı yorumlandığından bahsettik. Örneğin "Load balancer'da transfer encoding dikkate alınacak mı?" veya "Nginx'te content lenght dikkate alınacak mı? bunlarla ilgili net bir kural yoktur. Bu yüzden her http servisi kendi kuralını üretir ve kurallar arasında uyuşmazlıklar olursa sorun ortaya çıkar. 
