@@ -23,3 +23,9 @@ HTTP 2, network seviyesinde binary bir protokoldür. Http 2'de her requestin bir
 Http 2 binary olduğu için content lenght okumamıza gerek yoktur. Çünkü http'nin alt katında protokol seviyesinde frameler vardır. Framelerin içinde de kaç byte okunacağı yazar. 
 
 Http request smuggling zafiyeti de http 2'de yoktur. Bu yüzden yazının başlarında bahsettiğimiz gibi downgrade ile http 2 düşürülür ve request smuggling daha düşük http versiyonlarında sömürülür.
+
+# **Farklı versiyonların beraber kullanımı**
+
+Bir istemciden load balancer'a http 2.0 requesti gelsin. Daha sonra load balancer'dan arka taraftaki sunucuya http 1.1 requesti gitsin. Bu durumda tcp paketlerinde bölünme olacaktır. Çünkü http 2'de bir tcp bağlantısı üzerinden birden fazla tcp paketi gider. Ama http 1.1'de ayrı tcp bağlantıları kullanılır. Yani load balancer'a gelen bir paket birden fazla paket olarak çıkacaktır. Bu durumda load balancer'a arka taraftan gelen responselar başkasının http requesti ile eşleşebilir.
+
+<img width="1250" height="616" alt="image" src="https://github.com/user-attachments/assets/fd65cc5b-02da-4335-a6e7-0665e0fb19b7" />
