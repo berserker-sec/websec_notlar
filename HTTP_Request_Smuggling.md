@@ -15,3 +15,11 @@ Http request'i load balancer'a gelir, load balancer bunu nginx'e, nginx de bunu 
 Bu ifadenin gidebilmesi için karşı tarafa tcp paketlerinin gönderilmesi gerekmektedir. Karşı taraf bu paketleri bekleyecek ve `//` gördüğünde artık biz transport katmanından bir üst katmana request göndermeyi başarabiliriz. Veriler karşı tarafa gittikten sonra bir cevap dönecek. Tcp 1.0'de cevap alınana kadar ikinci istek atılamaz. Ama Tcp 2.0'de bu özellik yoktur. Peki biz request gönderirken başkası da request göndermiyor mu? Elbette gönderiyor. Başkasıymış gibi request göndermemiz durumunda veya başkasına giden cevapları etkileyebilmemiz durumunda bazı sorunlar ortaya çıkar. HTTP Request Smuggling, esasen bir aracı sunucuyu (proxy, load balancer) kandırarak, aynı TCP bağlantısı üzerinden birden fazla kullanıcının isteklerinin sırasını ve yorumlanma şeklini manipüle etmeye odaklanır. HTTP/2 Downgrade Saldırısında ise HTTP/2 protokolünü HTTP/1.1'e düşürerek, saldırgan HTTP/1.1 Request Smuggling gibi saldırılara zemin hazırlar. Çünkü HTTP/2, genellikle daha güvenli ve katı çerçeveleme kurallarına sahiptir.
 
 Http requestlerinde content lenght ve transfer encoding diye iki tane header var. Bunlardan gelen değere göre http servisi davranış gerçekleştirir. Request'imizin geçtiği yollarda, requestimizin load balancer'da farklı nginx'te farklı yorumlandığından bahsettik. Örneğin "Load balancer'da transfer encoding dikkate alınacak mı?" veya "Nginx'te content lenght dikkate alınacak mı? bunlarla ilgili net bir kural yoktur. Bu yüzden her http servisi kendi kuralını üretir ve kurallar arasında uyuşmazlıklar olursa sorun ortaya çıkar. 
+
+# **HTTP 2 hakkında**
+
+HTTP 2, network seviyesinde binary bir protokoldür. Http 2'de her requestin bir id'si vardır biz de bu id ile ilgili cevabı alırız. Bu yüzden istediğimiz kadar http 2 requestini cevabını beklemeden çıkartabiliriz. Http 2; protokol bazlı, async ve hızlı bir imkan getirmektedir. 
+
+Http 2 binary olduğu için content lenght okumamıza gerek yoktur. Çünkü http'nin alt katında protokol seviyesinde frameler vardır. Framelerin içinde de kaç byte okunacağı yazar. 
+
+Http request smuggling zafiyeti de http 2'de yoktur. Bu yüzden yazının başlarında bahsettiğimiz gibi downgrade ile http 2 düşürülür ve request smuggling daha düşük http versiyonlarında sömürülür.
