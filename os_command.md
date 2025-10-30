@@ -49,8 +49,10 @@ static public function Logs_StartTrace($params) {
 
 Koda ilk baktığımızda bizi ilk karşılayan şey, adından da anlaşılacağı üzere `static public function Logs_StartTrace($params)` yani logları yakından izleme işlemini başlatan bir fonksiyondur.
 
-Biraz daha aşağı indiğimizde ise
-`    if (!isset($params['regexp'])
+Biraz daha aşağı indiğimizde ise kullanıcıdan alınan 'regexp' parametresiyle match işlemleri gerçekleştiriliyor.
+```
+    if (!isset($params['regexp'])
     || !$params['datefrom'] || !preg_match('/^\d{8}$/', $params['datefrom'])
     || !$params['dateto'] || !preg_match('/^\d{8}$/', $params['dateto']) ) {
-      return array('trace_id' => $trace_id);`
+      return array('trace_id' => $trace_id);
+```
