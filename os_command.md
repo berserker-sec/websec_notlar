@@ -15,3 +15,42 @@ Bir web uygulamasının tasarlanmasındaki her aşamada işin güvenlik kısmı 
 # **Command Injection olabilecek yerler**
 
 İşletim sisteminin yapabileceği şeylerin web uygulaması tarafından yapılabileceği yerler command injection zafiyeti barındırabilecek yerlerdir. Her dilde işletim sisteminde komut çalıştırmaya imkan sağlayan fonksiyon vardır. Örneğin `nmap 192.168.73.1 -Pn -n -p` şeklinde bir komut çalıştırdığımızı varsayalım. Buradaki `192.168.73.1` bir parametredir ve bu parametre kullanıcıdan alınırsa ve komutun içerisine güvensiz bir şekilde buraya bir parametre girilirse OS command injection zafiyetiyle karşılaşılmış olur. Güvensiz yerde girilen inputun outputu; html içerikte görüntüleniyorsa ve encoding yoksa xss, sql sorgusunda kullanılıyorsa ve parameter binding gibi bir işlem yapmıyorsa sqli ve işletim sisteminde çalıştıralacak komutun içerisinde ise OS command injection ortaya çıkabilmektedir.
+
+# **Kod Üzerinden İnceleme**
+
+```
+static public function Logs_StartTrace($params) {
+    $trace_id = 0;
+    require_once('MailCleaner/Config.php');
+    $mcconfig = MailCleaner_Config::getInstance();
+    if (!isset($params['regexp'])
+    || !$params['datefrom'] || !preg_match('/^\d{8}$/', $params['datefrom'])
+    || !$params['dateto'] || !preg_match('/^\d{8}$/', $params['dateto']) ) {
+      return array('trace_id' => $trace_id);
+    }
+    $cmd = $mcconfig->getOption('SRCDIR')."/bin/search_log.pl ".$params['datefrom']." ".$params['dateto']." '".$params['regexp']."'";
+    if (isset($params['filter']) && $params['filter'] != '') {
+      $cmd .= " '".$params['filter']."'";
+    }
+                if (isset($params['hiderejected']) && $params['hiderejected']) {
+                    $cmd .= ' -R ';
+                }
+    if (isset($params['trace_id']) && $params['trace_id']) {
+      $trace_id = $params['trace_id'];
+    } else {
+      $trace_id = md5(uniqid(mt_rand(), true));
+    }
+                $cmd .= " -B ".$trace_id;
+    $cmd .= "> ".$mcconfig->getOption('VARDIR')."/run/mailcleaner/log_search/".$trace_id." &";
+    $res = `$cmd`;
+    return array('trace_id' => $trace_id, 'cmd' => $cmd) ;
+  }
+```
+
+Koda ilk baktığımızda bizi ilk karşılayan şey, adından da anlaşılacağı üzere `static public function Logs_StartTrace($params)` yani logları yakından izleme işlemini başlatan bir fonksiyondur.
+
+Biraz daha aşağı indiğimizde ise
+`    if (!isset($params['regexp'])
+    || !$params['datefrom'] || !preg_match('/^\d{8}$/', $params['datefrom'])
+    || !$params['dateto'] || !preg_match('/^\d{8}$/', $params['dateto']) ) {
+      return array('trace_id' => $trace_id);`
