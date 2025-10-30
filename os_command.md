@@ -56,3 +56,15 @@ Biraz daha aşağı indiğimizde ise kullanıcıdan alınan 'regexp' parametresi
     || !$params['dateto'] || !preg_match('/^\d{8}$/', $params['dateto']) ) {
       return array('trace_id' => $trace_id);
 ```
+
+Daha sonra burada ise işletim sisteminde bir pearl dosyası çalıştırılacağı görülüyor ve bu kod satırındaki parametreleri biz kontrol edebiliyoruz.
+
+```
+$cmd = $mcconfig->getOption('SRCDIR')."/bin/search_log.pl ".$params['datefrom']." ".$params['dateto']." '".$params['regexp']."'";
+```
+
+En aşağıda ise `$res = `$cmd`;` ile yukarıdaki komut çalıştırılıyor. Eğer bu koddaki parametlerden birini kontrol edebilirsek bu komuta kendi parametremizi enjekte edebiliriz. Nasıl yapacağımızı pseudo code üzerinden gösterelim.
+
+```
+"/bin/search_log.pl "AAAAA" "BBBBB" "CCCCC"
+```
