@@ -74,3 +74,4 @@ En aşağıda ise `$res = `$cmd`;` ile yukarıdaki komut çalıştırılıyor. E
 Fakat tek tırnak içindeki tüm parametrenin içine yine tek tırnaklarla komut yazılırsa çalışır.
 
 <img width="746" height="58" alt="image" src="https://github.com/user-attachments/assets/b87a0770-a461-407f-8b40-d11cfabcc55f" />
+
