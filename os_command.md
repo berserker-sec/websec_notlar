@@ -63,8 +63,14 @@ Daha sonra burada ise işletim sisteminde bir pearl dosyası çalıştırılaca�
 $cmd = $mcconfig->getOption('SRCDIR')."/bin/search_log.pl ".$params['datefrom']." ".$params['dateto']." '".$params['regexp']."'";
 ```
 
-En aşağıda ise `$res = `$cmd`;` ile yukarıdaki komut çalıştırılıyor. Eğer bu koddaki parametlerden birini kontrol edebilirsek bu komuta kendi parametremizi enjekte edebiliriz. Nasıl yapacağımızı pseudo code üzerinden gösterelim.
+En aşağıda ise `$res = `$cmd`;` ile yukarıdaki komut çalıştırılıyor. Eğer bu koddaki parametlerden birini kontrol edebilirsek bu komuta kendi parametremizi enjekte edebiliriz. Aşağıda buna bir örnek var.
 
-```
-"/bin/search_log.pl "AAAAA" "BBBBB" "CCCCC"
-```
+<img width="420" height="181" alt="image" src="https://github.com/user-attachments/assets/622922d1-e490-4fd4-b619-cc10da3634c6" />
+
+" işaretleri içinde olan kısım kullanıcının müdahele edebildiği kısım. Eğerki oraya isim yerine bir dolar işareti ve parantezler içinde komut yazarsak komut çalışacaktır. " değilde ' tırnak içinde yazılırsa komut çalışmayacaktır.
+
+<img width="418" height="61" alt="image" src="https://github.com/user-attachments/assets/5a311ca1-d233-4de2-bd98-8f409806147e" />
+
+Fakat tek tırnak içindeki tüm parametrenin içine yine tek tırnaklarla komut yazılırsa çalışır.
+
+<img width="746" height="58" alt="image" src="https://github.com/user-attachments/assets/b87a0770-a461-407f-8b40-d11cfabcc55f" />
