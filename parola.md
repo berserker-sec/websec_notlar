@@ -63,3 +63,19 @@ Kriptanaliz, şifreli mesajları çözme ve kriptografik sistemlerin güvenliği
 - Kriptografik Sistemleri Analiz Etmek: Şifreleme algoritmalarının, karma fonksiyonlarının veya protokollerin matematiksel ve uygulama zayıflıklarını bularak bunların güvenliğini kırmak veya azaltmak.
 
 - Anahtarı Keşfetmek: Şifreli metin üzerinden yola çıkarak şifrelemede kullanılan gizli anahtarı ele geçirmeye çalışmak.
+
+### Kerckhoffs Prensibinin Özü
+
+Bir şifreleme sisteminin güvenliği, algoritmanın gizliliğinden değil, yalnızca anahtarın gizliliğinden kaynaklanmalıdır. Bu, Kerckhoffs prensibinin en kısa ve öz ifadesidir. Bu prensipte, sistemle ilgili herşey bilinse bile güvenlik sağlanmış olmalıdır. 
+
+### Hashing Nedir ?
+
+Hashing, herhangi bir boyuttaki (bir harf, bir cümle, bir kitap, bir video) veriyi alıp, bu veriye karşılık gelen sabit uzunlukta bir dize (string) üreten tek yönlü matematiksel bir süreçtir. Hashing algoritmaları tek yönlü çalıştıkları için ortaya çıkan sonuçtan geriye dönüş mümkün değildir. Ancak aldığımız kullanıcı adı ve parolamızı tekrar aynı algoritmadan geçirdiğimizde ortaya çıkan sonuç veritabanındaki sonuç ile aynı olacağı için karşılaştırmayı doğru bir şekilde yapabilmekteyiz. 
+
+### Modüler Aritmetik
+
+Eğer 13 sayısının modunu alırsanız sonuç 3 çıkar. Eğer elinizde 13 sayısı varsa mod sonucunun bu şekilde çıkacağı bellidir fakat tam tersi bir durum söz konusu olduğunda yani "3 sayısı hangi sayının modudur?" gibi bir soru size sorulduğunda cevap olarak karşınıza birden fazla sonuç çıkar. (3,13,23,33,43,....100000003) gibi bir olasılık denizinde doğru cevabı bulmak için brute force'a mecbur kalırız. 
+
+### Salting Nedir?
+
+Salting, kullanıcının şifresi karma işleminden geçirilmeden hemen önce, şifreye rastgele oluşturulmuş benzersiz bir veri dizisinin (tuz) eklenmesi işlemidir. Bir uygulamada eğer ki birden fazla aynı şifreyi kullanan farklı kullanıcı varsa bu şifreler hash algoritmalarından geçirildiğinde tekrar aynı sonucu elde etmiş olacağız. Eğer kullanıcı giriş yaparken rastgele ve uzun bir değer üretilip şifreye eklenirse brute force yapmak zorlaşacaktır. 
