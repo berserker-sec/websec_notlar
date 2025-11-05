@@ -33,3 +33,21 @@ class UserController extend Controller:
 	def update():
 ```
 
+Proxy uygulaması gibi olan uygulamalar da aşağıdaki gibidir. Bu durumda, güncelleme işlemini yapan iç serviste, kullanıcıdan aldığı field’lar dışında da field’lar ekleyerek aşağıdaki gibi bir request gidebilir:
+
+```
+UPDATE /internalapi/v1/user/{username}
+Hostname: internalUserService
+
+{
+	"firstname": "Mehmet",
+	"additionalField": "exampleValue"
+}
+```
+
+Hal böyle olunca uygulama, potansiyel saldırı vektörleri de ortaya çıkmaktadır. Kullanıcıdan gelen {username} alanına eğer ki herhangi bir filtrelenme uygulanmazsa saldırganların uygulamada komut çalışmasına imkân sağlayabilir. Örneğin aşağıdaki gibi bir url tüm kullanıcıların silinmesiyle sonuçlanabilir.
+
+```
+UPDATE /api/..%2f..%2f..%2f..%2fdeleteAllUser HTTP/2.0
+Host: website.com
+```
