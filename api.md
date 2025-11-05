@@ -13,11 +13,23 @@ arasında bile uyumluluk sağlar.
 
 Diyelim ki bir uygulamanın aşağıdaki gibi bir user objesi ve username ve firstname isminde değişkenleri var.
 
-````
+```
 GET /api/mdisec HTTP/2.0
 Host: website.com
 User-Agent: [Your User Agent]
 
 username: "a-z100",
 firstname: "[Desired First Name]"
-````
+```
+
+"mdisec" olarak verilen değer burada username değişkenine atanmaktadır. Yazılımcılar, User.find($username) gibi bir ifade ile istedikleri işlemi gerçekleştirir. Eğerki güncelleme işlemi yapılacaksa da eskiden get ve post requestleri vardı. Peki böyle bir durumda create ve update'in farkı nasıl belirlenecek? İkisi de post ile gönderiliyor. Bunları ayırt etmek için "_method" kullanılırdı ve name kısmında eğerki "_method" varsa value'ya atanan değere göre bir ayırt etme işlemi gerçekleşirdi. Eğer value'ya atanan değer "put" ise arka tarafta create işlemi gerçekleşirdi ama eğer value'ya atanan değer "delete" ise arka tarafta silme işlemi gerçekleşirdi. Günümüzde ise yazılım mimarileri artık aşağıdaki gibidir.
+
+```
+class UserController extend Controller:
+	def get():
+	
+	def delete():
+	
+	def update():
+```
+
